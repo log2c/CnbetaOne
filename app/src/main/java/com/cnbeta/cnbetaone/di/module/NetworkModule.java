@@ -1,6 +1,10 @@
 package com.cnbeta.cnbetaone.di.module;
 
 
+import com.cnbeta.cnbetaone.api.CnbetaApi;
+import com.cnbeta.cnbetaone.network.CnbetaApiInterceptor;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -30,6 +34,8 @@ public class NetworkModule {
     public Retrofit provideRetrofit(HttpUrl baseURL) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .addInterceptor(new CnbetaApiInterceptor())
+                .addNetworkInterceptor(new StethoInterceptor())
                 .readTimeout(Config.HTTP_READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
 
@@ -39,6 +45,12 @@ public class NetworkModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    public CnbetaApi provideCnbetaApi(Retrofit retrofit) {
+        return retrofit.create(CnbetaApi.class);
     }
 
 }

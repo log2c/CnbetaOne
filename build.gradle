@@ -30,7 +30,6 @@ ext {
     appcompat = '27.1.1'
     constraintLayout = '1.1.3'
     daggerVersion = '2.17'
-    lombokVersion = '1.18.2'
     gsonVersion = '2.8.5'
     okHttpVersion = "3.11.0"
     retrofitVersion = '2.4.0'
@@ -42,5 +41,9 @@ ext {
     rxJavaAdapterVersion = '2.4.0'
 
     qmuiVersion = '1.1.3'
+
+    stetho = '1.5.0'
+
+    lombok = '1.18.2'
 
 }

@@ -2,7 +2,7 @@ package com.cnbeta.cnbetaone;
 
 public class Constants {
     public static class CnbetaUrl {
-        public static final String BASE_URL = "http://api.cnbeta.com/capi";
+        public static final String BASE_URL = "http://api.cnbeta.com/";
     }
 
     public static class Config {
