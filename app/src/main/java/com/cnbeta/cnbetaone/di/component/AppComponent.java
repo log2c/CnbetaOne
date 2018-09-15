@@ -6,6 +6,7 @@ import com.cnbeta.cnbetaone.App;
 import com.cnbeta.cnbetaone.di.module.ActivityBindingModule;
 import com.cnbeta.cnbetaone.di.module.ApiServiceModule;
 import com.cnbeta.cnbetaone.di.module.ApplicationModule;
+import com.cnbeta.cnbetaone.di.module.DatabaseModule;
 import com.cnbeta.cnbetaone.di.module.NetworkModule;
 
 import javax.inject.Singleton;
@@ -22,7 +23,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
                 ActivityBindingModule.class,
                 AndroidSupportInjectionModule.class,
                 ApiServiceModule.class,
-                NetworkModule.class})
+                NetworkModule.class,
+                DatabaseModule.class})
 public interface AppComponent extends AndroidInjector<App> {
 
     @Component.Builder

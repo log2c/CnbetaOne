@@ -1,10 +1,13 @@
 package com.cnbeta.cnbetaone.entity;
 
+import android.arch.persistence.room.Entity;
+
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Data;
 
 @Data
+@Entity(primaryKeys = "sid", tableName = "article_summary")
 public class ArticleSummary {
     /**
      * sid : 768093
@@ -22,7 +25,7 @@ public class ArticleSummary {
      * thumb : https://static.cnbetacdn.com/thumb/mini/article/2018/0914/ec0b229a3ddfda5.jpg
      */
 
-    private String sid;
+    private long sid;
     private String title;
     @SerializedName("pubtime")
     private String pubTime;
