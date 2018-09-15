@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.fragment.ArticleListFragment">
 
-    <FrameLayout
-        android:id="@+id/fl_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_article_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

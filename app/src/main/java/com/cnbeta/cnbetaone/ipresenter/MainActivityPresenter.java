@@ -28,9 +28,8 @@ public class MainActivityPresenter implements MainActivityContract.IPresenter {
     private CnbetaDatabase mCnbetaDatabase;
 
     @Inject
-    public MainActivityPresenter(@Nullable String articleType, CnbetaApi cnbetaApi, CnbetaDatabase cnbetaDatabase) {
+    public MainActivityPresenter(CnbetaApi cnbetaApi, CnbetaDatabase cnbetaDatabase) {
         Log.i(TAG, "MainActivityPresenter");
-        mArticleType = articleType;
         mCnbetaApi = cnbetaApi;
         mCnbetaDatabase = cnbetaDatabase;
     }

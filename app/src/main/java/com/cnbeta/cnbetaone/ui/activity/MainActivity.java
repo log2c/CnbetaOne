@@ -1,12 +1,13 @@
 package com.cnbeta.cnbetaone.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.ipresenter.MainActivityPresenter;
 import com.cnbeta.cnbetaone.iview.MainActivityContract;
+import com.cnbeta.cnbetaone.ui.fragment.ArticleListFragment;
+import com.cnbeta.cnbetaone.util.ActivityUtils;
 
 import javax.inject.Inject;
 
@@ -20,7 +21,11 @@ public class MainActivity extends DaggerAppCompatActivity implements MainActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_request).setOnClickListener(this);
+        ArticleListFragment allFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
+        if (allFragment == null) {
+            allFragment = new ArticleListFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), allFragment, R.id.fl_content);
+        }
     }
 
     @Override
@@ -37,10 +42,5 @@ public class MainActivity extends DaggerAppCompatActivity implements MainActivit
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_request:
-                mPresenter.doRequest();
-                break;
-        }
     }
 }
