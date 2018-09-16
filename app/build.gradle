@@ -27,6 +27,9 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -74,4 +77,12 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$rootProject.room"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.room"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.room"
+
+    //Paging的依赖
+    implementation "android.arch.paging:runtime:$rootProject.paging_version"
+    //Paging对RxJava2的原生支持
+    implementation "android.arch.paging:rxjava2:$rootProject.paging_rxjava2"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
 }
