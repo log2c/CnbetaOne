@@ -5,6 +5,8 @@ import com.cnbeta.cnbetaone.api.CnbetaApi;
 import com.cnbeta.cnbetaone.network.CApiConverterFactory;
 import com.cnbeta.cnbetaone.network.CnbetaApiInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +33,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofit(HttpUrl baseURL) {
+    public Retrofit provideRetrofit(HttpUrl baseURL, Gson gson) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .addInterceptor(new CnbetaApiInterceptor())
@@ -42,7 +44,7 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .client(client)
-                .addConverterFactory(CApiConverterFactory.create())
+                .addConverterFactory(CApiConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
@@ -51,6 +53,19 @@ public class NetworkModule {
     @Singleton
     public CnbetaApi provideCnbetaApi(Retrofit retrofit) {
         return retrofit.create(CnbetaApi.class);
+    }
+
+    /**
+     * 提供设置时间戳格式的 GSON
+     *
+     * @return gson
+     * @see com.cnbeta.cnbetaone.entity.ArticleSummary
+     * pubtime : 2018-09-14 23:00:24
+     */
+    @Provides
+    @Singleton
+    public Gson provideGson() {
+        return new GsonBuilder().setDateFormat("YYYY-MM-dd HH:mm:ss").create();
     }
 
 }

@@ -16,7 +16,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface ArticleSummaryDao {
 
-    @Query("SELECT * FROM article_summary WHERE sid < (:sid)")
+    @Query("SELECT * FROM article_summary WHERE sid < (:sid) ORDER BY pubTime")
     Flowable<List<ArticleSummary>> queryBySid(long sid);
 
     @Query("SELECT * FROM article_summary")

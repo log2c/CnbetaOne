@@ -1,13 +1,18 @@
 package com.cnbeta.cnbetaone.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.TypeConverters;
 
+import com.cnbeta.cnbetaone.util.DateConverter;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
 @Entity(primaryKeys = "sid", tableName = "article_summary")
+@TypeConverters(DateConverter.class)
 public class ArticleSummary {
     /**
      * sid : 768093
@@ -28,7 +33,7 @@ public class ArticleSummary {
     private long sid;
     private String title;
     @SerializedName("pubtime")
-    private String pubTime;
+    private Date pubTime;
     private String summary;
     private String topic;
     private String counter;
