@@ -1,6 +1,7 @@
 package com.cnbeta.cnbetaone.data.repository;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.cnbeta.cnbetaone.db.dao.ArticleSummaryDao;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
@@ -20,16 +21,27 @@ public class ArticleSummaryDatabaseRepositoryImp implements ArticleSummaryReposi
 
     @Override
     public List<ArticleSummary> loadOnInit(@Nullable String type) {
-        return null;
+        if (TextUtils.isEmpty(type) || type.equals("null")) {   // 全部 topic
+            return mArticleSummaryDao.loadAllLimit().blockingFirst();
+        }
+        return mArticleSummaryDao.loadByTopicLimit(type).blockingFirst();
     }
 
     @Override
     public List<ArticleSummary> loadBefore(@Nullable String type, Long sid) {
-        return null;
+        if (TextUtils.isEmpty(type) || type.equals("null")) {   // 全部 topic
+            List<ArticleSummary> articleSummaries = mArticleSummaryDao.queryAfterBySid(sid).blockingFirst();
+            return articleSummaries;
+        }
+        return mArticleSummaryDao.queryBeforeSid(sid, type).blockingFirst();
     }
 
     @Override
     public List<ArticleSummary> loadAfter(@Nullable String type, Long sid) {
-        return null;
+        if (TextUtils.isEmpty(type) || type.equals("null")) {   // 全部 topic
+            List<ArticleSummary> articleSummaries = mArticleSummaryDao.queryBeforeBySid(sid).blockingFirst();
+            return articleSummaries;
+        }
+        return mArticleSummaryDao.queryAfterSid(sid, type).blockingFirst();
     }
 }

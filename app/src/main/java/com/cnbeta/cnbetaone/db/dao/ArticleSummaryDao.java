@@ -16,8 +16,34 @@ import io.reactivex.Flowable;
 @Dao
 public interface ArticleSummaryDao {
 
-    @Query("SELECT * FROM article_summary WHERE sid < (:sid) ORDER BY pubTime")
-    Flowable<List<ArticleSummary>> queryBySid(long sid);
+    /**
+     * 加载所有数据
+     *
+     * @return 数据
+     */
+    @Query("SELECT * FROM article_summary ORDER BY pubTime DESC LIMIT 20")
+    Flowable<List<ArticleSummary>> loadAllLimit();
+
+    /**
+     * 按 topic 加载数据
+     *
+     * @param topic topic
+     * @return 数据
+     */
+    @Query("SELECT * FROM article_summary WHERE topic = (:topic) ORDER BY pubTime DESC LIMIT 20")
+    Flowable<List<ArticleSummary>> loadByTopicLimit(String topic);
+
+    @Query("SELECT * FROM article_summary WHERE sid < (:sid) ORDER BY pubTime DESC limit 20")
+    Flowable<List<ArticleSummary>> queryBeforeBySid(long sid);
+
+    @Query("SELECT * FROM article_summary WHERE sid > (:sid) ORDER BY pubTime DESC limit 20")
+    Flowable<List<ArticleSummary>> queryAfterBySid(long sid);
+
+    @Query("SELECT * FROM article_summary WHERE topic =(:topic) AND sid > (:sid) ORDER BY pubTime DESC limit 20")
+    Flowable<List<ArticleSummary>> queryAfterSid(long sid, String topic);
+
+    @Query("SELECT * FROM article_summary WHERE topic =(:topic) AND sid < (:sid) ORDER BY pubTime limit 20")
+    Flowable<List<ArticleSummary>> queryBeforeSid(long sid, String topic);
 
     @Query("SELECT * FROM article_summary")
     Flowable<List<ArticleSummary>> loadAll();

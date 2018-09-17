@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.cnbeta.cnbetaone.data.repository.ArticleSummaryDatabaseRepositoryImp;
 import com.cnbeta.cnbetaone.data.repository.ArticleSummaryRepository;
 import com.cnbeta.cnbetaone.data.repository.ArticleSummaryServerRepositoryImp;
+import com.cnbeta.cnbetaone.db.dao.ArticleSummaryDao;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 
 import java.util.List;
@@ -18,8 +19,10 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
     private String mSidType;
     ArticleSummaryRepository mServerRepository;
     ArticleSummaryRepository mDatabaseRepository;
+    ArticleSummaryDao mArticleSummaryDao;
 
-    public ArticleSummaryDataSource(@Nullable String sidType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository) {
+    public ArticleSummaryDataSource(@Nullable String sidType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, ArticleSummaryDao summaryDao) {
+        mArticleSummaryDao = summaryDao;
         this.mSidType = sidType;
         mServerRepository = serverRepository;
         mDatabaseRepository = databaseRepository;
@@ -30,19 +33,24 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<ArticleSummary> callback) {
-        callback.onResult(mServerRepository.loadOnInit(mSidType));
+        List<ArticleSummary> serverData = mServerRepository.loadOnInit(mSidType);
+        mArticleSummaryDao.insert(serverData.toArray(new ArticleSummary[serverData.size()]));
+        List<ArticleSummary> dbData = mDatabaseRepository.loadOnInit(mSidType);
+        callback.onResult(dbData);
     }
 
+    // 加载旧数据
     @Override
     public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<ArticleSummary> callback) {
-        List<ArticleSummary> serverData = mServerRepository.loadAfter(mSidType, params.key);
-        callback.onResult(serverData);
+        List<ArticleSummary> serverData = mServerRepository.loadAfter(mSidType, params.key);    // 先从服务器加载
+        mArticleSummaryDao.insert(serverData.toArray(new ArticleSummary[serverData.size()]));   // 保存到数据库中
+        List<ArticleSummary> dbData = mDatabaseRepository.loadAfter(mSidType, params.key);
+        callback.onResult(dbData);
     }
 
     @Override
     public void loadBefore(@NonNull LoadParams<Long> params, @NonNull LoadCallback<ArticleSummary> callback) {
-        List<ArticleSummary> serverData = mServerRepository.loadBefore(mSidType, params.key);
-        callback.onResult(serverData);
+
     }
 
     @NonNull

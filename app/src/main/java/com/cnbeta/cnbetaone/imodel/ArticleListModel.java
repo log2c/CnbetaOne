@@ -46,8 +46,8 @@ public abstract class ArticleListModel {
 
     @Provides
     @ActivityScoped
-    static ArticleSummaryDataSourceFactory provideArticleDataFactory(ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository) {
-        return new ArticleSummaryDataSourceFactory(null, serverRepository, databaseRepository);
+    static ArticleSummaryDataSourceFactory provideArticleDataFactory(ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase) {
+        return new ArticleSummaryDataSourceFactory(null, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao());
     }
 
     @Provides

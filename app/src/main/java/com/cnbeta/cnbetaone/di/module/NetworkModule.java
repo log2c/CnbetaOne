@@ -65,7 +65,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     public Gson provideGson() {
-        return new GsonBuilder().setDateFormat("YYYY-MM-dd HH:mm:ss").create();
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
     }
 
 }
