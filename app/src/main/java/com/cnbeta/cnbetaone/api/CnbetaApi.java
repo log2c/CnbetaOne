@@ -14,16 +14,16 @@ public interface CnbetaApi {
     @GET("/capi?method=Article.Lists")
     Observable<CnbetaBaseResponse<List<ArticleSummary>>> articlesSign();
 
-    @GET("capi")
-    Observable<String> topicArticlesSign(@Query("topicid") String topicId);
+    @GET("/capi?method=Article.Lists")
+    Observable<CnbetaBaseResponse<List<ArticleSummary>>> topicArticlesSign(@Query("topicid") String topicId);
 
-    @GET("capi")
-    Observable<String> newArticlesSign(@Query("topicid") String topicId, @Query("start_sid") int startSid);
+    @GET("/capi?method=Article.Lists")
+    Observable<CnbetaBaseResponse<List<ArticleSummary>>> newArticlesSign(@Query("topicid") String topicId, @Query("start_sid") long startSid);
 
-    @GET("capi")
-    Observable<String> oldArticlesSign(@Query("topicid") String topicId, @Query("end_sid") int endSid);
+    @GET("/capi?method=Article.Lists")
+    Observable<CnbetaBaseResponse<List<ArticleSummary>>> oldArticlesSign(@Query("topicid") String topicId, @Query("end_sid") long endSid);
 
-    @GET("capi")
-    Observable<String> articleContentSign(@Query("topicid") String topicId, @Query("sid") int sid);
+    @GET("/capi?method=Article.NewsContent")
+    Observable<CnbetaBaseResponse<List<ArticleSummary>>> articleContentSign(@Query("topicid") String topicId, @Query("sid") long sid);
 
 }

@@ -1,7 +1,7 @@
 package com.cnbeta.cnbetaone.ipresenter;
 
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.arch.lifecycle.LiveData;
+import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -27,54 +27,30 @@ public class ArticleListFragmentPresenter implements ArticleListContract.Present
     private String topicType;
     @Nullable
     private ArticleListContract.View mView;
-    private ObservableArrayList<ArticleSummary> mArticleSummaryList;
+    private LiveData<PagedList<ArticleSummary>> mArticleSummaryList;
     @NonNull
     private CnbetaApi mCnbetaApi;
 
+    private boolean isInit = false;
+
     @Inject
-    public ArticleListFragmentPresenter(ArticleListFragment fragment, CnbetaApi cnbetaApi) {
+    public ArticleListFragmentPresenter(ArticleListFragment fragment, CnbetaApi cnbetaApi, LiveData<PagedList<ArticleSummary>> pagedListLiveData) {
         if (fragment.getArguments() != null) {
             this.topicType = fragment.getArguments().getString(ArticleListFragment.TOPIC_ID);
         }
         mCnbetaApi = cnbetaApi;
+        mArticleSummaryList = pagedListLiveData;
     }
 
     @Override
     public void takeView(@NonNull ArticleListContract.View view) {
         mView = view;
-        if (mArticleSummaryList == null) {
-            mArticleSummaryList = new ObservableArrayList<>();
-            mArticleSummaryList.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<ArticleSummary>>() {
-                @Override
-                public void onChanged(ObservableList<ArticleSummary> sender) {
-
-                }
-
-                @Override
-                public void onItemRangeChanged(ObservableList<ArticleSummary> sender, int positionStart, int itemCount) {
-
-                }
-
-                @Override
-                public void onItemRangeInserted(ObservableList<ArticleSummary> sender, int positionStart, int itemCount) {
-                    if (mView != null) {
-                        mView.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onItemRangeMoved(ObservableList<ArticleSummary> sender, int fromPosition, int toPosition, int itemCount) {
-
-                }
-
-                @Override
-                public void onItemRangeRemoved(ObservableList<ArticleSummary> sender, int positionStart, int itemCount) {
-
-                }
-            });
-            mView.initAdapter(mArticleSummaryList);
-            loadDataFromServer();
+        if (isInit) {
+            return;
         }
+        mView.initAdapter(mArticleSummaryList);
+//        loadDataFromServer();
+        isInit = true;
     }
 
     @Override
@@ -90,7 +66,7 @@ public class ArticleListFragmentPresenter implements ArticleListContract.Present
                     @Override
                     public void onSuccess(CnbetaBaseResponse<List<ArticleSummary>> listCnbetaBaseResponse) {
                         Log.i(TAG, "onSuccess: loadDataFromServer()");
-                        mArticleSummaryList.addAll(listCnbetaBaseResponse.getResult());
+                        mArticleSummaryList.getValue().addAll(listCnbetaBaseResponse.getResult());
                     }
 
                     @Override

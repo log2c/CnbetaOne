@@ -1,6 +1,8 @@
 package com.cnbeta.cnbetaone.ui.fragment;
 
 
+import android.arch.lifecycle.LiveData;
+import android.arch.paging.PagedList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -17,8 +19,6 @@ import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 import com.cnbeta.cnbetaone.ipresenter.ArticleListFragmentPresenter;
 import com.cnbeta.cnbetaone.iview.ArticleListContract;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -76,10 +76,13 @@ public class ArticleListFragment extends BaseFragment implements ArticleListCont
     }
 
     @Override
-    public void initAdapter(List<ArticleSummary> summaryList) {
-        mArticleListAdapter = new ArticleListAdapter(summaryList, getContext());
+    public void initAdapter(LiveData<PagedList<ArticleSummary>> summaryList) {
+        mArticleListAdapter = new ArticleListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        summaryList.observe(this, pagedList -> {
+            mArticleListAdapter.submitList(pagedList);
+        });
         mRecyclerView.setAdapter(mArticleListAdapter);
     }
 

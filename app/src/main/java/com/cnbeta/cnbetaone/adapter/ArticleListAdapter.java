@@ -1,9 +1,9 @@
 package com.cnbeta.cnbetaone.adapter;
 
-import android.content.Context;
+import android.arch.paging.PagedListAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +13,11 @@ import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.databinding.ItemArticleListBinding;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 
-import java.util.List;
+public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, ArticleListAdapter.ArticleListVH> {
 
-public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ArticleListVH> {
-    @Nullable
-    private List<ArticleSummary> mArticleSummaryList;
-    private Context mContext;
 
-    public ArticleListAdapter(@Nullable List<ArticleSummary> articleSummaryList, Context context) {
-        mArticleSummaryList = articleSummaryList;
-        mContext = context;
+    public ArticleListAdapter() {
+        super(diffCallback);
     }
 
     @NonNull
@@ -34,14 +29,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ArticleListVH holder, int position) {
-        if (mArticleSummaryList != null) {
-            holder.bindTo(mArticleSummaryList.get(position));
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return mArticleSummaryList == null ? 0 : mArticleSummaryList.size();
+        holder.bindTo(getItem(position));
     }
 
     static class ArticleListVH extends RecyclerView.ViewHolder {
@@ -57,4 +45,17 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             mBinding.executePendingBindings();
         }
     }
+
+    private static final DiffUtil.ItemCallback<ArticleSummary> diffCallback = new DiffUtil.ItemCallback<ArticleSummary>() {
+
+        @Override
+        public boolean areItemsTheSame(ArticleSummary oldItem, ArticleSummary newItem) {
+            return oldItem.getSid() == newItem.getSid();
+        }
+
+        @Override
+        public boolean areContentsTheSame(ArticleSummary oldItem, ArticleSummary newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }

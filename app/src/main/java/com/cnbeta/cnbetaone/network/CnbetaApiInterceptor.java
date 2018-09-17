@@ -76,7 +76,7 @@ public class CnbetaApiInterceptor implements Interceptor {
         }
 
         if (url.queryParameter("start_sid") != null) {
-            return CnBetaSignUtil.newArticlesSign(timestamp, url.queryParameter("topicid"), Integer.parseInt("start_sid"));
+            return CnBetaSignUtil.newArticlesSign(timestamp, url.queryParameter("topicid"), Integer.parseInt(url.queryParameter("start_sid")));
         }
         return CnBetaSignUtil.topicArticlesSign(timestamp, url.queryParameter("topicid"));
     }
