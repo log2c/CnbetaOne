@@ -1,19 +1,15 @@
-package com.cnbeta.cnbetaone.ui.activity;
+package com.cnbeta.cnbetaone.ui.main;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.cnbeta.cnbetaone.R;
-import com.cnbeta.cnbetaone.ipresenter.MainActivityPresenter;
-import com.cnbeta.cnbetaone.iview.MainActivityContract;
-import com.cnbeta.cnbetaone.ui.fragment.ArticleListFragment;
 import com.cnbeta.cnbetaone.util.ActivityUtils;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity implements MainActivityContract.IView, View.OnClickListener {
+public class MainActivity extends DaggerAppCompatActivity implements MainActivityContract.View, android.view.View.OnClickListener {
     @Inject
     MainActivityPresenter mPresenter;
 
@@ -41,6 +37,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainActivit
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(android.view.View v) {
     }
 }

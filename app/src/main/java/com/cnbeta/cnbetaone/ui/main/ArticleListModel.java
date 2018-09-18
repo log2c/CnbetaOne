@@ -1,4 +1,4 @@
-package com.cnbeta.cnbetaone.imodel;
+package com.cnbeta.cnbetaone.ui.main;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
@@ -12,9 +12,6 @@ import com.cnbeta.cnbetaone.db.CnbetaDatabase;
 import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
 import com.cnbeta.cnbetaone.di.scope.FragmentScoped;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
-import com.cnbeta.cnbetaone.ipresenter.ArticleListFragmentPresenter;
-import com.cnbeta.cnbetaone.iview.ArticleListContract;
-import com.cnbeta.cnbetaone.ui.fragment.ArticleListFragment;
 
 import dagger.Binds;
 import dagger.Module;

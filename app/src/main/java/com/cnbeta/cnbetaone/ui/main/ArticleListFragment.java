@@ -1,4 +1,4 @@
-package com.cnbeta.cnbetaone.ui.fragment;
+package com.cnbeta.cnbetaone.ui.main;
 
 
 import android.arch.lifecycle.LiveData;
@@ -17,8 +17,6 @@ import com.cnbeta.cnbetaone.adapter.ArticleListAdapter;
 import com.cnbeta.cnbetaone.base.BaseFragment;
 import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
-import com.cnbeta.cnbetaone.ipresenter.ArticleListFragmentPresenter;
-import com.cnbeta.cnbetaone.iview.ArticleListContract;
 
 import javax.inject.Inject;
 
@@ -84,10 +82,5 @@ public class ArticleListFragment extends BaseFragment implements ArticleListCont
             mArticleListAdapter.submitList(pagedList);
         });
         mRecyclerView.setAdapter(mArticleListAdapter);
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        mArticleListAdapter.notifyDataSetChanged();
     }
 }

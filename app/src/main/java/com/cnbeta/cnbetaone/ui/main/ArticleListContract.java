@@ -1,4 +1,4 @@
-package com.cnbeta.cnbetaone.iview;
+package com.cnbeta.cnbetaone.ui.main;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
@@ -11,8 +11,6 @@ public interface ArticleListContract {
     interface View extends BaseView<Presenter> {
 
         void initAdapter(LiveData<PagedList<ArticleSummary>> summaryList);
-
-        void notifyDataSetChanged();
 
     }
 

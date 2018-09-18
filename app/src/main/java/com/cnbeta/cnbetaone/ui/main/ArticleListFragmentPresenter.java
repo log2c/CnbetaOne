@@ -1,4 +1,4 @@
-package com.cnbeta.cnbetaone.ipresenter;
+package com.cnbeta.cnbetaone.ui.main;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
@@ -10,9 +10,7 @@ import com.cnbeta.cnbetaone.api.CnbetaApi;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 import com.cnbeta.cnbetaone.entity.CnbetaBaseResponse;
 import com.cnbeta.cnbetaone.exception.CApiException;
-import com.cnbeta.cnbetaone.iview.ArticleListContract;
 import com.cnbeta.cnbetaone.rxjava.CApiObserver;
-import com.cnbeta.cnbetaone.ui.fragment.ArticleListFragment;
 
 import java.util.List;
 
@@ -49,7 +47,6 @@ public class ArticleListFragmentPresenter implements ArticleListContract.Present
             return;
         }
         mView.initAdapter(mArticleSummaryList);
-//        loadDataFromServer();
         isInit = true;
     }
 
