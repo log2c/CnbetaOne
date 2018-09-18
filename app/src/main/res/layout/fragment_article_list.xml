@@ -11,10 +11,15 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.ArticleListFragment">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_article_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+       <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/qmui_pull_refresh">
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/rv_article_list"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" />
+       </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

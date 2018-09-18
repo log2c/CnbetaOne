@@ -3,52 +3,51 @@ package com.cnbeta.cnbetaone.ui.main;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
+import android.support.annotation.Nullable;
 
 import com.cnbeta.cnbetaone.api.CnbetaApi;
 import com.cnbeta.cnbetaone.data.datasource.ArticleSummaryDataSourceFactory;
 import com.cnbeta.cnbetaone.data.repository.ArticleSummaryDatabaseRepositoryImp;
 import com.cnbeta.cnbetaone.data.repository.ArticleSummaryServerRepositoryImp;
 import com.cnbeta.cnbetaone.db.CnbetaDatabase;
-import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
-import com.cnbeta.cnbetaone.di.scope.FragmentScoped;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class ArticleListModel {
+public abstract class ArticleListFragmentModel {
 
-    @ActivityScoped
     @Binds
-    abstract ArticleListContract.Presenter provideFragmentPresenter(ArticleListFragmentPresenter presenter);
+    abstract ArticleListFragmentContract.Presenter provideFragmentPresenter(ArticleListFragmentPresenter presenter);
 
-    @FragmentScoped
-    @ContributesAndroidInjector
-    abstract ArticleListFragment articleListFragment();
+    @Nullable
+    @Provides
+    static String provideTopic(ArticleListFragment articleListFragment) {
+        if (articleListFragment.getArguments() != null) {
+            return articleListFragment.getArguments().getString(ArticleListFragment.TOPIC_ID);
+        }
+        return null;
+    }
 
     @Provides
-    @ActivityScoped
     static ArticleSummaryDatabaseRepositoryImp provideDatabase(CnbetaDatabase database) {
         return new ArticleSummaryDatabaseRepositoryImp(database.articleSummaryDao());
     }
 
     @Provides
-    @ActivityScoped
     static ArticleSummaryServerRepositoryImp provideServer(CnbetaApi cnbetaApi) {
         return new ArticleSummaryServerRepositoryImp(cnbetaApi);
     }
 
     @Provides
-    @ActivityScoped
-    static ArticleSummaryDataSourceFactory provideArticleDataFactory(ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase) {
-        return new ArticleSummaryDataSourceFactory(null, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao());
+    static ArticleSummaryDataSourceFactory provideArticleDataFactory(@Nullable String topicType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase) {
+        return new ArticleSummaryDataSourceFactory(topicType, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao());
     }
 
+    @SuppressWarnings("unchecked")
     @Provides
-    @ActivityScoped
     static LiveData<PagedList<ArticleSummary>> provideArticlePagedList(ArticleSummaryDataSourceFactory factory) {
         return new LivePagedListBuilder(factory, new PagedList.Config.Builder()
                 .setPageSize(20)

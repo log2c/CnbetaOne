@@ -15,23 +15,22 @@ import android.view.ViewGroup;
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.adapter.ArticleListAdapter;
 import com.cnbeta.cnbetaone.base.BaseFragment;
-import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import javax.inject.Inject;
 
 /**
  * 显示 Article 列表
  */
-@ActivityScoped
-public class ArticleListFragment extends BaseFragment implements ArticleListContract.View {
+public class ArticleListFragment extends BaseFragment implements ArticleListFragmentContract.View {
     public static final String TOPIC_ID = "topic_id";
-    @Nullable
-    private String mTopicId;
     private RecyclerView mRecyclerView;
+    @Nullable
     @Inject
     ArticleListFragmentPresenter mPresenter;
     private ArticleListAdapter mArticleListAdapter;
+    private QMUIPullRefreshLayout mPullRefreshView;
 
     @Inject
     public ArticleListFragment() {
@@ -48,9 +47,6 @@ public class ArticleListFragment extends BaseFragment implements ArticleListCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mTopicId = getArguments().getString(TOPIC_ID);
-        }
     }
 
     @Override
@@ -58,19 +54,42 @@ public class ArticleListFragment extends BaseFragment implements ArticleListCont
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
         mRecyclerView = view.findViewById(R.id.rv_article_list);
+        mPullRefreshView = view.findViewById(R.id.qmui_pull_refresh);
+        mPullRefreshView.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                if (mPresenter != null) {
+                    mPresenter.reloadData(ArticleListFragment.this);
+                }
+            }
+        });
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.takeView(this);
+        if (mPresenter != null) {
+            mPresenter.takeView(this);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mPresenter.dropView();
+        if (mPresenter != null) {
+            mPresenter.dropView();
+        }
     }
 
     @Override
@@ -78,9 +97,12 @@ public class ArticleListFragment extends BaseFragment implements ArticleListCont
         mArticleListAdapter = new ArticleListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        summaryList.observe(this, pagedList -> {
-            mArticleListAdapter.submitList(pagedList);
-        });
+        summaryList.observe(this, pagedList -> mArticleListAdapter.submitList(pagedList));
         mRecyclerView.setAdapter(mArticleListAdapter);
+    }
+
+    @Override
+    public void onDataLoaded() {
+        mPullRefreshView.finishRefresh();
     }
 }
