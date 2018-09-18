@@ -7,7 +7,6 @@ import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cnbeta.cnbetaone.api.CnbetaApi;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 
 import javax.inject.Inject;
@@ -19,13 +18,11 @@ public class ArticleListFragmentPresenter implements ArticleListFragmentContract
     @Nullable
     private ArticleListFragmentContract.View mView;
     private LiveData<PagedList<ArticleSummary>> mArticleSummaryList;
-    private CnbetaApi mCnbetaApi;
 
     private boolean isInit = false;
 
     @Inject
-    public ArticleListFragmentPresenter(@Nullable String topicType, CnbetaApi cnbetaApi, LiveData<PagedList<ArticleSummary>> pagedListLiveData) {
-        mCnbetaApi = cnbetaApi;
+    public ArticleListFragmentPresenter(@Nullable String topicType, LiveData<PagedList<ArticleSummary>> pagedListLiveData) {
         mTopicType = topicType;
         mArticleSummaryList = pagedListLiveData;
     }

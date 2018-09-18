@@ -20,6 +20,9 @@ public class MainActivity extends DaggerAppCompatActivity implements MainActivit
         ArticleListFragment allFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
         if (allFragment == null) {
             allFragment = new ArticleListFragment();
+//            Bundle args = new Bundle();
+//            args.putString(ArticleListFragment.TOPIC_ID, "9");
+//            allFragment.setArguments(args);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), allFragment, R.id.fl_content);
         }
     }
