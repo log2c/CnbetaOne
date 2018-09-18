@@ -16,6 +16,7 @@ import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.adapter.ArticleListAdapter;
 import com.cnbeta.cnbetaone.base.BaseFragment;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import javax.inject.Inject;
@@ -28,9 +29,10 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
     private RecyclerView mRecyclerView;
     @Nullable
     @Inject
-    ArticleListFragmentPresenter mPresenter;
+    ArticleListFragmentContract.Presenter mPresenter;
     private ArticleListAdapter mArticleListAdapter;
     private QMUIPullRefreshLayout mPullRefreshView;
+    private QMUIEmptyView mQMUIEmptyView;
 
     @Inject
     public ArticleListFragment() {
@@ -55,6 +57,7 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
         mRecyclerView = view.findViewById(R.id.rv_article_list);
         mPullRefreshView = view.findViewById(R.id.qmui_pull_refresh);
+        mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
         mPullRefreshView.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
             @Override
             public void onMoveTarget(int offset) {
@@ -104,5 +107,15 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
     @Override
     public void onDataLoaded() {
         mPullRefreshView.finishRefresh();
+    }
+
+    @Override
+    public void showEmptyView() {
+        mQMUIEmptyView.show();
+    }
+
+    @Override
+    public void hideEmptyView() {
+        mQMUIEmptyView.hide();
     }
 }

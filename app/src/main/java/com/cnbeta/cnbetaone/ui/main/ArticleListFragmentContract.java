@@ -14,6 +14,10 @@ public interface ArticleListFragmentContract {
         void initAdapter(LiveData<PagedList<ArticleSummary>> summaryList);
 
         void onDataLoaded();
+
+        void showEmptyView();
+
+        void hideEmptyView();
     }
 
     interface Presenter extends BasePresenter<View> {

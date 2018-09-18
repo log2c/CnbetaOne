@@ -33,6 +33,13 @@ public class ArticleListFragmentPresenter implements ArticleListFragmentContract
         if (isInit) {
             return;
         }
+        if (mArticleSummaryList.getValue() != null) {
+            if (mArticleSummaryList.getValue().isEmpty()) {
+                mView.showEmptyView();
+            } else {
+                mView.hideEmptyView();
+            }
+        }
         mView.initAdapter(mArticleSummaryList);
         isInit = true;
     }
@@ -50,6 +57,11 @@ public class ArticleListFragmentPresenter implements ArticleListFragmentContract
             public void onChanged(@Nullable PagedList<ArticleSummary> articleSummaries) {
                 unBind();
                 if (mView != null) {
+                    if (articleSummaries != null && !articleSummaries.isEmpty()) {
+                        mView.hideEmptyView();
+                    } else {
+                        mView.showEmptyView();
+                    }
                     mView.onDataLoaded();
                 }
             }

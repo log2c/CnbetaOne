@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
-    <android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.ArticleListFragment">
 
-       <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/qmui_pull_refresh">
-           <android.support.v7.widget.RecyclerView
-               android:id="@+id/rv_article_list"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent" />
-       </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+        <com.qmuiteam.qmui.widget.QMUITopBar
+            android:id="@+id/topbar"
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/qmui_topbar_height" />
 
-    </android.support.constraint.ConstraintLayout>
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:id="@+id/qmui_pull_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/qmui_topbar_height">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_article_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:id="@+id/qmui_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            app:qmui_title_text="空" />
+
+
+    </FrameLayout>
 </layout>
