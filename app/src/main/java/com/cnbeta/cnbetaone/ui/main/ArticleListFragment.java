@@ -5,6 +5,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,8 +18,6 @@ import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.adapter.ArticleListAdapter;
 import com.cnbeta.cnbetaone.base.BaseFragment;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
-import com.qmuiteam.qmui.widget.QMUIEmptyView;
-import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import javax.inject.Inject;
 
@@ -31,8 +31,8 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
     @Inject
     ArticleListFragmentContract.Presenter mPresenter;
     private ArticleListAdapter mArticleListAdapter;
-    private QMUIPullRefreshLayout mPullRefreshView;
-    private QMUIEmptyView mQMUIEmptyView;
+    //    private QMUIEmptyView mQMUIEmptyView;
+    private SwipeRefreshLayout mSwipeRefreshView;
 
     @Inject
     public ArticleListFragment() {
@@ -56,26 +56,17 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
         mRecyclerView = view.findViewById(R.id.rv_article_list);
-        mPullRefreshView = view.findViewById(R.id.qmui_pull_refresh);
-        mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
-        mPullRefreshView.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
-            @Override
-            public void onMoveTarget(int offset) {
-
-            }
-
-            @Override
-            public void onMoveRefreshView(int offset) {
-
-            }
-
-            @Override
-            public void onRefresh() {
-                if (mPresenter != null) {
-                    mPresenter.reloadData(ArticleListFragment.this);
-                }
+//        mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
+        mSwipeRefreshView = view.findViewById(R.id.refresh_layout);
+        mSwipeRefreshView.setColorSchemeResources(R.color.app_color_theme_1);
+        mSwipeRefreshView.setOnRefreshListener(() -> {
+            if (mPresenter != null) {
+                mPresenter.reloadData(ArticleListFragment.this);
             }
         });
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(view.findViewById(R.id.toolbar));
+        }
         return view;
     }
 
@@ -106,16 +97,16 @@ public class ArticleListFragment extends BaseFragment implements ArticleListFrag
 
     @Override
     public void onDataLoaded() {
-        mPullRefreshView.finishRefresh();
+        mSwipeRefreshView.setRefreshing(false);
     }
 
     @Override
     public void showEmptyView() {
-        mQMUIEmptyView.show();
+//        mQMUIEmptyView.show();
     }
 
     @Override
     public void hideEmptyView() {
-        mQMUIEmptyView.hide();
+//        mQMUIEmptyView.hide();
     }
 }

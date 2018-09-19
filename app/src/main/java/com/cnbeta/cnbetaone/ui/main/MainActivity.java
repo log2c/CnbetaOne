@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.util.ActivityUtils;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import javax.inject.Inject;
 
@@ -17,7 +16,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_main);
         ArticleListFragment allFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
         if (allFragment == null) {
