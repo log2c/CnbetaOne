@@ -1,5 +1,6 @@
 package com.cnbeta.cnbetaone.api;
 
+import com.cnbeta.cnbetaone.entity.ArticleContent;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
 import com.cnbeta.cnbetaone.entity.CnbetaBaseResponse;
 
@@ -24,6 +25,6 @@ public interface CnbetaApi {
     Observable<CnbetaBaseResponse<List<ArticleSummary>>> oldArticlesSign(@Query("topicid") String topicId, @Query("end_sid") long endSid);
 
     @GET("/capi?method=Article.NewsContent")
-    Observable<CnbetaBaseResponse<List<ArticleSummary>>> articleContentSign(@Query("topicid") String topicId, @Query("sid") long sid);
+    Observable<CnbetaBaseResponse<ArticleContent>> articleContentSign(@Query("sid") long sid);
 
 }

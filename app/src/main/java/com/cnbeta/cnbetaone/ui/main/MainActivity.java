@@ -3,13 +3,12 @@ package com.cnbeta.cnbetaone.ui.main;
 import android.os.Bundle;
 
 import com.cnbeta.cnbetaone.R;
+import com.cnbeta.cnbetaone.base.BaseActivity;
 import com.cnbeta.cnbetaone.util.ActivityUtils;
 
 import javax.inject.Inject;
 
-import dagger.android.support.DaggerAppCompatActivity;
-
-public class MainActivity extends DaggerAppCompatActivity implements MainActivityContract.View, android.view.View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainActivityContract.View, android.view.View.OnClickListener {
     @Inject
     MainActivityPresenter mPresenter;
 

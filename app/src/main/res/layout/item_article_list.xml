@@ -8,11 +8,16 @@
         <variable
             name="article"
             type="com.cnbeta.cnbetaone.entity.ArticleSummary" />
+
+        <variable
+            name="adapter"
+            type="com.cnbeta.cnbetaone.adapter.ArticleListAdapter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="90dp"
+        android:onClick="@{(v) -> adapter.onItemClick(article,v)}">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/QMUIRadiusImageView"

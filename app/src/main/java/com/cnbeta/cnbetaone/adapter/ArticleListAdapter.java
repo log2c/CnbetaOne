@@ -1,6 +1,7 @@
 package com.cnbeta.cnbetaone.adapter;
 
 import android.arch.paging.PagedListAdapter;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.databinding.ItemArticleListBinding;
 import com.cnbeta.cnbetaone.entity.ArticleSummary;
+import com.cnbeta.cnbetaone.ui.detail.ArticleDetailActivity;
 
 public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, ArticleListAdapter.ArticleListVH> {
 
@@ -29,7 +31,7 @@ public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, Article
 
     @Override
     public void onBindViewHolder(@NonNull ArticleListVH holder, int position) {
-        holder.bindTo(getItem(position));
+        holder.bindTo(getItem(position), this);
     }
 
     static class ArticleListVH extends RecyclerView.ViewHolder {
@@ -40,8 +42,9 @@ public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, Article
             mBinding = DataBindingUtil.bind(view);
         }
 
-        void bindTo(ArticleSummary articleSummary) {
+        void bindTo(ArticleSummary articleSummary, ArticleListAdapter articleListAdapter) {
             mBinding.setArticle(articleSummary);
+            mBinding.setAdapter(articleListAdapter);
             mBinding.executePendingBindings();
         }
     }
@@ -58,4 +61,11 @@ public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, Article
             return oldItem.equals(newItem);
         }
     };
+
+    public void onItemClick(ArticleSummary articleSummary, View view) {
+        Intent intent = new Intent(view.getContext(), ArticleDetailActivity.class);
+        intent.putExtra(ArticleDetailActivity.FLAG_SID, articleSummary.getSid());
+        intent.putExtra(ArticleDetailActivity.FLAG_TOPIC_ID, articleSummary.getTopic());
+        view.getContext().startActivity(intent);
+    }
 }
