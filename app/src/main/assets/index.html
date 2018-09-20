@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <!-- <script charset="utf-8" type="text/javascript" src="./data.js"></script> -->
+</head>
+
+<body>
+<div class="main">
+
+    <div class="title" id="title">
+
+    </div>
+
+    <div class="sub-title" id="sub_title">
+    </div>
+
+    <div class="intro" id="intro">
+    </div>
+
+    <div id="article">
+    </div>
+</div>
+
+<script language="javascript">
+        function img_process() {
+            if (document.getElementsByTagName('img').length === 0) {
+                return;
+            }
+            var imgs = document.getElementsByTagName('img');
+            for (let index = 0; index < imgs.length; index++) {
+                const _img = imgs[index];
+                if (_img.parentElement.tagName === 'A' && _img.parentElement.hasAttribute('href')) {
+                    _img.parentElement.removeAttribute('href')
+                }
+            }
+        }
+
+        function iframe_process() {
+            var videos = document.getElementsByTagName('iframe');
+            for (let index = 0; index < videos.length; index++) {
+                const video = videos[index];
+                video.className = 'video';
+                video.parentElement.className='video-p'
+            }
+        }
+
+        // function MockData() {
+
+        //     this.getTitle = function () {
+        //         return data.title;
+        //     }
+
+        //     this.getSubTitle = function () {
+        //         return data.time;
+        //     }
+
+        //     this.getIntro = function () {
+        //         return data.hometext;
+        //     }
+
+        //     this.getContent = function () {
+        //         return data.bodytext;
+        //     }
+        // }
+
+        (function () {
+            // if (typeof (article_interface) === "undefined" || article_interface === null) {
+            //     var article_interface = new MockData();
+            //     debugger;
+            // }
+
+            var title = article_interface.getTitle();
+            var sub_title = article_interface.getSubTitle();
+            var intro = article_interface.getIntro();
+            var content = article_interface.getContent();
+
+            document.getElementById('title').textContent = title
+            document.getElementById('sub_title').textContent = sub_title;
+            document.getElementById('intro').innerHTML = intro;
+            document.getElementById('article').innerHTML = content;
+
+            img_process();
+            iframe_process();
+        })();
+    </script>
+
+</body>
+
+</html>

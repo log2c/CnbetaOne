@@ -48,6 +48,9 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
                     @Override
                     public void onSuccess(CnbetaBaseResponse<ArticleContent> articleContentCnbetaBaseResponse) {
                         Log.i(TAG, "onSuccess: ");
+                        if (mView != null) {
+                            mView.loadPage(articleContentCnbetaBaseResponse.getResult());
+                        }
                     }
 
                     @Override
