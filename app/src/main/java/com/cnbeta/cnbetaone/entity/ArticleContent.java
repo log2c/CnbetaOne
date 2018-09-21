@@ -20,29 +20,29 @@ public class ArticleContent {
     @SerializedName("hometext")
     private String homeText;
     @SerializedName("listorder")
-    private String listOrder;
-    private String comments;
-    private String counter;
+    private long listOrder;
+    private long comments;
+    private long counter;
     @SerializedName("mview")
-    private String mView;
+    private long mView;
     @SerializedName("collectnum")
     private String collectNum;
-    private String good;
-    private String bad;
-    private String score;
-    private String ratings;
-    private String score_story;
-    private String ratings_story;
+    private long good;
+    private long bad;
+    private long score;
+    private long ratings;
+    private long score_story;
+    private long ratings_story;
     @SerializedName("pollid")
-    private String pollId;
+    private long pollId;
     @SerializedName("queueid")
-    private String queueId;
+    private long queueId;
     @SerializedName("ifcom")
     private String ifCom;
     @SerializedName("ishome")
     private String isHome;
     private String elite;
-    private String status;
+    private int status;
     @SerializedName("inputtime")
     private String inputTime;
     @SerializedName("updatetime")

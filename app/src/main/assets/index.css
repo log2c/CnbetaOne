@@ -1,8 +1,8 @@
 .main {
     padding: 10px;
-    width: 95%;
     height: auto;
     overflow-Y: scroll;
+    word-wrap: break-word;
 }
 
 .title {
@@ -11,7 +11,7 @@
 }
 
 .sub-title {
-    font-size: 5px;
+    font-size: 14px;
     color: #A2A2A2;
     margin-top: 5px;
 }
@@ -35,6 +35,8 @@ body {
     position: fixed;
 }
 
+.article {}
+
 img {
     width: 100%;
     height: auto;
@@ -49,4 +51,8 @@ img {
 
 .video-p {
     text-align: center;
+}
+
+a {
+    word-wrap: break-word;
 }

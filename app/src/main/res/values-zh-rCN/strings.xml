@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Cnbeta one</string>
+    <string name="parameter_error">参数错误!</string>
+    <string name="sub_title_day_time">%d天前</string>
+    <string name="sub_title_hour_time">%d小时前</string>
+    <string name="sub_title_minute_time">%d分钟前</string>
+    <string name="sub_title_second_time">%d秒前</string>
+    <string name="sub_title_format">%1$s %2$s %3$d查看 %4$d评论</string>
+</resources>

@@ -48,6 +48,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         if (mPresenter != null) {
             mPresenter.takeView(this);
         }
+        mWebView.onResume();
     }
 
     @Override
@@ -56,6 +57,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         if (mPresenter != null) {
             mPresenter.dropView();
         }
+        mWebView.onPause();
     }
 
     @Override
@@ -82,7 +84,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
     @SuppressLint("JavascriptInterface")
     @Override
     public void loadPage(ArticleContent articleContent) {
-        JSBridgeInterface jsBridgeInterface = new JSBridgeInterface(articleContent);
+        JSBridgeInterface jsBridgeInterface = new JSBridgeInterface(articleContent, getContext());
         mWebView.addJavascriptInterface(jsBridgeInterface, "article_interface");
         //加载本地HTML页面
         mWebView.loadUrl("file:///android_asset/index.html");

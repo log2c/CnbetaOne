@@ -2,7 +2,6 @@ package com.cnbeta.cnbetaone.ui.detail;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.cnbeta.cnbetaone.api.CnbetaApi;
@@ -23,8 +22,8 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
     ArticleDetailFragmentContract.View mView;
     private CnbetaApi mCnbetaApi;
     private long mSid;
-    private String mTopicId;
     private CnbetaDatabase mCnbetaDatabase;
+    private boolean mIsLoaded = false;
 
     @Inject
     public ArticleDetailFragmentPresenter(CnbetaApi cnbetaApi, CnbetaDatabase cnbetaDatabase) {
@@ -35,9 +34,11 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
     @Override
     public void takeView(@NonNull ArticleDetailFragmentContract.View view) {
         mView = view;
-        mTopicId = view.getTopicId();
         mSid = view.getSid();
-        if (TextUtils.isEmpty(mTopicId) || mSid == -1) {
+        if (mIsLoaded) {
+            return;
+        }
+        if (mSid == -1) {
             view.showArgumentsError();
             return;
         }
@@ -48,6 +49,7 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
                     @Override
                     public void onSuccess(CnbetaBaseResponse<ArticleContent> articleContentCnbetaBaseResponse) {
                         Log.i(TAG, "onSuccess: ");
+                        mIsLoaded = true;
                         if (mView != null) {
                             mView.loadPage(articleContentCnbetaBaseResponse.getResult());
                         }

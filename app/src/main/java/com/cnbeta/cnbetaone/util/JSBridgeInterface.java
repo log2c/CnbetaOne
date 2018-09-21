@@ -1,27 +1,48 @@
 package com.cnbeta.cnbetaone.util;
 
+import android.content.Context;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.entity.ArticleContent;
 
+import java.util.Date;
+
 public class JSBridgeInterface {
+    private static final String TAG = JSBridgeInterface.class.getSimpleName();
     private String mTitle;
     private String mSubTitle;
     private String mIntro;
     private String mContent;
+    private Context mContext;
 
-    public JSBridgeInterface(String title, String subTitle, String intro, String content) {
-        mTitle = title;
-        mSubTitle = subTitle;
-        mIntro = intro;
-        mContent = content;
-    }
 
-    public JSBridgeInterface(ArticleContent content) {
+    public JSBridgeInterface(ArticleContent content, Context context) {
+        mContext = context;
         mTitle = content.getTitle();
-        mSubTitle = content.getInputTime() + " " + content.getAid() + " " + content.getMView() + " 阅读" + content.getCollectNum() + "";
+        mSubTitle = String.format(context.getString(R.string.sub_title_format), getSubTitleTimeStr(content, context), content.getAid(), content.getMView(), content.getComments());
         mIntro = content.getHomeText();
         mContent = content.getBodyText();
+    }
+
+    private static String getSubTitleTimeStr(ArticleContent content, Context context) {
+        Date articleDate = content.getTime();
+        Date nowDate = new Date();
+        long l = nowDate.getTime() - articleDate.getTime();
+        long day = l / (24 * 60 * 60 * 1000);
+        long hour = (l / (60 * 60 * 1000) - day * 24);
+        long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
+        long second = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+        if (day > 0) {
+            return String.format(context.getString(R.string.sub_title_day_time), day);
+        } else if (hour > 0) {
+            return String.format(context.getString(R.string.sub_title_hour_time), hour);
+        } else if (min > 0) {
+            return String.format(context.getString(R.string.sub_title_minute_time), min);
+        } else {
+            return String.format(context.getString(R.string.sub_title_second_time), second);
+        }
     }
 
     @JavascriptInterface
@@ -42,5 +63,10 @@ public class JSBridgeInterface {
     @JavascriptInterface
     public String getContent() {
         return mContent;
+    }
+
+    @JavascriptInterface
+    public void photoPreview(String[] photoList, int position) {
+        Log.i(TAG, "photoPreview: ");
     }
 }
