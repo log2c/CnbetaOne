@@ -1,11 +1,13 @@
 package com.cnbeta.cnbetaone.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.entity.ArticleContent;
+import com.cnbeta.cnbetaone.ui.photoview.PhotoViewActivity;
 
 import java.util.Date;
 
@@ -68,5 +70,9 @@ public class JSBridgeInterface {
     @JavascriptInterface
     public void photoPreview(String[] photoList, int position) {
         Log.i(TAG, "photoPreview: ");
+        Intent intent = new Intent(mContext, PhotoViewActivity.class);
+        intent.putExtra(PhotoViewActivity.FLAG_IMG_POSITION, position);
+        intent.putExtra(PhotoViewActivity.FLAG_IMG_LIST, photoList);
+        mContext.startActivity(intent);
     }
 }

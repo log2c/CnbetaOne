@@ -23,7 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.detail.ArticleDetailActivity"></activity>
+        <activity android:name=".ui.detail.ArticleDetailActivity" />
+        <activity
+            android:name=".ui.photoview.PhotoViewActivity"
+            android:theme="@style/AppTheme.Dark.Transparent" />
     </application>
 
 </manifest>
