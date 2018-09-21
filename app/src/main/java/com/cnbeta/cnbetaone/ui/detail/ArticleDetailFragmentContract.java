@@ -14,9 +14,15 @@ public interface ArticleDetailFragmentContract {
         long getSid();
 
         void loadPage(ArticleContent articleContent);
+
+        void showLoadingView();
+
+        void showReloadView();
+
+        void hideEmptyView();
     }
 
     interface Presenter extends BasePresenter<View> {
-
+        void reload();
     }
 }

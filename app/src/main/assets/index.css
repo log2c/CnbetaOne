@@ -25,6 +25,11 @@
     color: rgb(71, 76, 85);
     margin-top: 5px;
 }
+.footer{
+    color: rgb(150, 150, 150);
+    margin-top: 60px;
+    text-align: center;
+}
 
 body {
     width: 100%;

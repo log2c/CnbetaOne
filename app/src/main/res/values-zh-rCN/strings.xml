@@ -6,4 +6,5 @@
     <string name="sub_title_minute_time">%d分钟前</string>
     <string name="sub_title_second_time">%d秒前</string>
     <string name="sub_title_format">%1$s %2$s %3$d查看 %4$d评论</string>
+    <string name="reload">Reload</string>
 </resources>

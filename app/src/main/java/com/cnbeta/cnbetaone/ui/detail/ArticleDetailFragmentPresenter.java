@@ -42,6 +42,13 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
             view.showArgumentsError();
             return;
         }
+        loadData();
+    }
+
+    private void loadData() {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mCnbetaApi.articleContentSign(mSid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -52,12 +59,16 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
                         mIsLoaded = true;
                         if (mView != null) {
                             mView.loadPage(articleContentCnbetaBaseResponse.getResult());
+                            mView.hideEmptyView();
                         }
                     }
 
                     @Override
                     public void onFail(CApiException e) {
                         Log.e(TAG, "onFail: ", e);
+                        if (mView != null) {
+                            mView.showReloadView();
+                        }
                     }
                 });
     }
@@ -65,5 +76,10 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
     @Override
     public void dropView() {
         mView = null;
+    }
+
+    @Override
+    public void reload() {
+        loadData();
     }
 }

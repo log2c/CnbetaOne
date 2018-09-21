@@ -3,8 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="./index.css">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
 </head>
 
 <body>
@@ -22,10 +21,14 @@
 
     <div id="article">
     </div>
+
+    <div class="footer">
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="80%" color=#DEDEDE SIZE=1>
+        完
+    </div>
 </div>
 </body>
 
-<!-- <script charset="utf-8" type="text/javascript" src="./data.js"></script> -->
 <script language="javascript" charset="utf-8">
     var img_list = [];
 
@@ -61,30 +64,6 @@
     }
 
     (function () {
-        // if (typeof (article_interface) === "undefined" || article_interface === null) {
-        //     var article_interface = new(function () { // Mock data
-
-        //         this.getTitle = function () {
-        //             return data.title;
-        //         }
-
-        //         this.getSubTitle = function () {
-        //             return data.time;
-        //         }
-
-        //         this.getIntro = function () {
-        //             return data.hometext;
-        //         }
-
-        //         this.getContent = function () {
-        //             return data.bodytext;
-        //         }
-
-        //         this.photoPreview = function (list, pos) {
-        //             console.log('photo Preview');
-        //         }
-        //     })();
-        // }
         var title = article_interface.getTitle();
         var sub_title = article_interface.getSubTitle();
         var intro = article_interface.getIntro();
@@ -98,7 +77,6 @@
         img_process(article_interface);
         iframe_process();
     })();
-
 </script>
 
 </html>

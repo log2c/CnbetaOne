@@ -15,6 +15,7 @@ import com.cnbeta.cnbetaone.base.BaseFragment;
 import com.cnbeta.cnbetaone.di.scope.ActivityScoped;
 import com.cnbeta.cnbetaone.entity.ArticleContent;
 import com.cnbeta.cnbetaone.util.JSBridgeInterface;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
 
     @Inject
     ArticleDetailFragmentContract.Presenter mPresenter;
+    private QMUIEmptyView mQMUIEmptyView;
     private WebView mWebView;
 
     @Inject
@@ -36,6 +38,7 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_detail, container, false);
         mWebView = view.findViewById(R.id.webView);
+        mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
         WebView.setWebContentsDebuggingEnabled(true);
         WebSettings wSet = mWebView.getSettings();
         wSet.setJavaScriptEnabled(true);
@@ -88,5 +91,26 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         mWebView.addJavascriptInterface(jsBridgeInterface, "article_interface");
         //加载本地HTML页面
         mWebView.loadUrl("file:///android_asset/index.html");
+    }
+
+    @Override
+    public void showLoadingView() {
+        mQMUIEmptyView.setVisibility(View.VISIBLE);
+        mQMUIEmptyView.show(true);
+    }
+
+    @Override
+    public void showReloadView() {
+        mQMUIEmptyView.show(false, null, null, getString(R.string.reload), v -> {
+            if (mPresenter != null) {
+                mPresenter.reload();
+            }
+        });
+    }
+
+    @Override
+    public void hideEmptyView() {
+        mQMUIEmptyView.setVisibility(View.INVISIBLE);
+        mQMUIEmptyView.hide();
     }
 }
