@@ -8,6 +8,7 @@
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>
         <item name="android:listPreferredItemHeightSmall">?attr/qmui_list_item_height</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
 
         <!-- 配置qmui提供的theme -->
         <item name="qmui_config_color_blue">@color/app_color_blue</item>

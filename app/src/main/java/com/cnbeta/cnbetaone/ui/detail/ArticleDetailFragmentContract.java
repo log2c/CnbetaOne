@@ -9,7 +9,7 @@ public interface ArticleDetailFragmentContract {
     interface View extends BaseView<Presenter> {
         void showArgumentsError();
 
-        String getTopicId();
+        String getTitle();
 
         long getSid();
 

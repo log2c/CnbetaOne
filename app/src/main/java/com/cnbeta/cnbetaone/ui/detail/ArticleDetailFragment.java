@@ -3,7 +3,11 @@ package com.cnbeta.cnbetaone.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -31,12 +35,28 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
     public ArticleDetailFragment() {
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_detail, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(null);
+        if (getActivity() != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setDisplayHomeAsUpEnabled(true);
+                supportActionBar.setHomeButtonEnabled(true);
+                supportActionBar.setTitle(null);
+            }
+        }
         mWebView = view.findViewById(R.id.webView);
         mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
         WebView.setWebContentsDebuggingEnabled(true);
@@ -44,6 +64,17 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         wSet.setJavaScriptEnabled(true);
         return view;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //监听左上角的返回箭头
+        if (item.getItemId() == android.R.id.home && getActivity() != null) {
+            getActivity().finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onResume() {
@@ -69,11 +100,11 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
     }
 
     @Override
-    public String getTopicId() {
+    public String getTitle() {
         if (getArguments() == null) {
             return null;
         }
-        return getArguments().getString(ArticleDetailActivity.FLAG_TOPIC_ID);
+        return getArguments().getString(ArticleDetailActivity.FLAG_TITLE);
     }
 
     @Override
