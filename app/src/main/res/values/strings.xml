@@ -14,4 +14,7 @@
     <string name="hour_ago">%1$d hours ago</string>
     <string name="minutes_ago">%1$d minutes ago</string>
     <string name="second_ago">%1$d seconds ago</string>
+    <string name="network_error">Network error!</string>
+    <string name="okhttp_error">Okhttp error!</string>
+    <string name="unknown_error">Unknown error!</string>
 </resources>

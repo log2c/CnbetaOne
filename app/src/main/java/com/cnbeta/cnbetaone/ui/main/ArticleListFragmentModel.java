@@ -1,5 +1,6 @@
 package com.cnbeta.cnbetaone.ui.main;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
@@ -37,8 +38,8 @@ public abstract class ArticleListFragmentModel {
     }
 
     @Provides
-    static ArticleSummaryServerRepositoryImp provideServer(CnbetaApi cnbetaApi) {
-        return new ArticleSummaryServerRepositoryImp(cnbetaApi);
+    static ArticleSummaryServerRepositoryImp provideServer(CnbetaApi cnbetaApi, Application application) {
+        return new ArticleSummaryServerRepositoryImp(cnbetaApi, application);
     }
 
     @Provides

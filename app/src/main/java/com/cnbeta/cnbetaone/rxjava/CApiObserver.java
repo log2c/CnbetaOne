@@ -23,24 +23,28 @@ public abstract class CApiObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        CApiException cApiException;
-        if (e instanceof HttpException) {
-            // We had non-2XX http error
-            cApiException = new CApiException(((HttpException) e).message(), -1);
-        } else if (e instanceof IOException) {
-            // A network or conversion error happened
-            cApiException = new CApiException(e.getMessage(), -1);
-        } else if (e instanceof CApiException) {
-            cApiException = (CApiException) e;
-        } else {
-            cApiException = new CApiException("UNKNOW ERROR!", -2);
-        }
-        onFail(cApiException);
+        onFail(processException(e));
     }
 
     @Override
     public void onComplete() {
 
+    }
+
+    public static CApiException processException(Throwable e) {
+        CApiException cApiException;
+        if (e instanceof HttpException) {
+            // We had non-2XX http error
+            cApiException = new CApiException(((HttpException) e).message(), 1);
+        } else if (e instanceof IOException) {
+            // A network or conversion error happened
+            cApiException = new CApiException(e.getMessage(), 2);
+        } else if (e instanceof CApiException) {
+            cApiException = (CApiException) e;
+        } else {
+            cApiException = new CApiException("UNKNOW ERROR!", -1);
+        }
+        return cApiException;
     }
 
     public abstract void onSuccess(T t);
