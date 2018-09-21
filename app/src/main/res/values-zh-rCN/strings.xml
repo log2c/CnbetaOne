@@ -15,4 +15,7 @@
     <string name="network_error">网络异常!</string>
     <string name="okhttp_error">App内部错误!</string>
     <string name="unknown_error">未知错误!</string>
+    <string name="refresh">刷新</string>
+    <string name="open_with_browser">通过浏览器打开</string>
+    <string name="action_more">更多…</string>
 </resources>

@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +68,29 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_article_detail_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //监听左上角的返回箭头
         if (item.getItemId() == android.R.id.home && getActivity() != null) {
             getActivity().finish();
             return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.ic_explore:
+                if (mPresenter != null) {
+                    mPresenter.openWithBrowser(getContext());
+                }
+                break;
+            case R.id.ic_refresh:
+                if (mPresenter != null) {
+                    mPresenter.reload();
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

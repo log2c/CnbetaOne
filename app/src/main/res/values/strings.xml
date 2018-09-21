@@ -17,4 +17,7 @@
     <string name="network_error">Network error!</string>
     <string name="okhttp_error">Okhttp error!</string>
     <string name="unknown_error">Unknown error!</string>
+    <string name="refresh">Refresh</string>
+    <string name="open_with_browser">Open with browser</string>
+    <string name="action_more">More…</string>
 </resources>

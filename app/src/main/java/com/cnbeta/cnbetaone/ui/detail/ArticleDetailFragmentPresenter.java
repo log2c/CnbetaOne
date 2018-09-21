@@ -1,6 +1,9 @@
 package com.cnbeta.cnbetaone.ui.detail;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -17,14 +20,17 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentContract.Presenter {
+public class
+ArticleDetailFragmentPresenter implements ArticleDetailFragmentContract.Presenter {
     public static final String TAG = ArticleDetailFragmentPresenter.class.getSimpleName();
+    public static final String BASE_CNBETA_URL = "https://m.cnbeta.com/view/%1$d.htm";
     @Nullable
     ArticleDetailFragmentContract.View mView;
     private CnbetaApi mCnbetaApi;
     private long mSid;
     private CnbetaDatabase mCnbetaDatabase;
     private boolean mIsLoaded = false;
+    private ArticleContent mArticleContent = null;
 
     @Inject
     public ArticleDetailFragmentPresenter(CnbetaApi cnbetaApi, CnbetaDatabase cnbetaDatabase) {
@@ -65,6 +71,7 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
 
     private void onContentLoaded(ArticleContent articleContent) {
         mIsLoaded = true;
+        mArticleContent = articleContent;
         if (mView != null) {
             mView.loadPage(articleContent);
             mView.hideEmptyView();
@@ -110,5 +117,15 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
             mView.showLoadingView();
         }
         loadContentFromServer();
+    }
+
+    @Override
+    public void openWithBrowser(Context context) {
+        String url = String.format(BASE_CNBETA_URL, mArticleContent.getSid());
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(uri);
+        context.startActivity(intent);
     }
 }
