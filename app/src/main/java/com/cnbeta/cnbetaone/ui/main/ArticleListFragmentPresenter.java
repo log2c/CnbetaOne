@@ -51,6 +51,9 @@ public class ArticleListFragmentPresenter implements ArticleListFragmentContract
 
     @Override
     public void reloadData(LifecycleOwner lifecycleOwner) {
+        if (mArticleSummaryList.getValue() == null) {
+            return;
+        }
         mArticleSummaryList.getValue().getDataSource().invalidate();
         Observer<PagedList<ArticleSummary>> observer = new Observer<PagedList<ArticleSummary>>() {
             @Override

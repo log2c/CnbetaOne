@@ -1,5 +1,9 @@
 package com.cnbeta.cnbetaone.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.TypeConverters;
+
+import com.cnbeta.cnbetaone.util.DateConverter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -7,6 +11,8 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
+@Entity(primaryKeys = "sid", tableName = "article_content")
+@TypeConverters(DateConverter.class)
 public class ArticleContent {
     private long sid;
     @SerializedName("catid")

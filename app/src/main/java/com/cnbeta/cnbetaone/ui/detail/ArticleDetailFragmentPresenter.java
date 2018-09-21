@@ -1,8 +1,8 @@
 package com.cnbeta.cnbetaone.ui.detail;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.cnbeta.cnbetaone.api.CnbetaApi;
 import com.cnbeta.cnbetaone.db.CnbetaDatabase;
@@ -13,6 +13,7 @@ import com.cnbeta.cnbetaone.rxjava.CApiObserver;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,32 +46,57 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
         loadData();
     }
 
+    @SuppressLint("CheckResult")
     private void loadData() {
         if (mView != null) {
             mView.showLoadingView();
         }
+        mCnbetaDatabase.articleContentDao().queryBySid(mSid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(articleContents -> {
+                    if (articleContents.isEmpty()) {
+                        loadContentFromServer();
+                        return;
+                    }
+                    onContentLoaded(articleContents.get(0));
+                }, throwable -> loadContentFromServer());
+    }
+
+    private void onContentLoaded(ArticleContent articleContent) {
+        mIsLoaded = true;
+        if (mView != null) {
+            mView.loadPage(articleContent);
+            mView.hideEmptyView();
+        }
+    }
+
+    private void loadContentFromServer() {
         mCnbetaApi.articleContentSign(mSid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new CApiObserver<CnbetaBaseResponse<ArticleContent>>() {
                     @Override
                     public void onSuccess(CnbetaBaseResponse<ArticleContent> articleContentCnbetaBaseResponse) {
-                        Log.i(TAG, "onSuccess: ");
-                        mIsLoaded = true;
-                        if (mView != null) {
-                            mView.loadPage(articleContentCnbetaBaseResponse.getResult());
-                            mView.hideEmptyView();
-                        }
+                        onContentLoaded(articleContentCnbetaBaseResponse.getResult());
+                        saveContentToDB(articleContentCnbetaBaseResponse.getResult());
                     }
 
                     @Override
                     public void onFail(CApiException e) {
-                        Log.e(TAG, "onFail: ", e);
                         if (mView != null) {
                             mView.showReloadView();
                         }
                     }
                 });
+    }
+
+    @SuppressLint("CheckResult")
+    private void saveContentToDB(ArticleContent result) {
+        Flowable.just(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe((n) -> mCnbetaDatabase.articleContentDao().insert(result));
     }
 
     @Override
@@ -80,6 +106,9 @@ public class ArticleDetailFragmentPresenter implements ArticleDetailFragmentCont
 
     @Override
     public void reload() {
-        loadData();
+        if (mView != null) {
+            mView.showLoadingView();
+        }
+        loadContentFromServer();
     }
 }
