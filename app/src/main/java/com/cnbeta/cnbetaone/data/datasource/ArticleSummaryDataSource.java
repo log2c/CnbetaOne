@@ -34,7 +34,7 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<ArticleSummary> callback) {
         List<ArticleSummary> serverData = mServerRepository.loadOnInit(mSidType);
-        mArticleSummaryDao.insert(serverData.toArray(new ArticleSummary[serverData.size()]));
+        mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));
         List<ArticleSummary> dbData = mDatabaseRepository.loadOnInit(mSidType);
         callback.onResult(dbData);
     }
@@ -43,7 +43,7 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
     @Override
     public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<ArticleSummary> callback) {
         List<ArticleSummary> serverData = mServerRepository.loadAfter(mSidType, params.key);    // 先从服务器加载
-        mArticleSummaryDao.insert(serverData.toArray(new ArticleSummary[serverData.size()]));   // 保存到数据库中
+        mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));   // 保存到数据库中
         List<ArticleSummary> dbData = mDatabaseRepository.loadAfter(mSidType, params.key);
         callback.onResult(dbData);
     }

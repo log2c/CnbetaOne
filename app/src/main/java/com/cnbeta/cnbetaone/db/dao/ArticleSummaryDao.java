@@ -51,9 +51,15 @@ public interface ArticleSummaryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ArticleSummary... summaries);
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertIgnore(ArticleSummary... summaries);
+
     @Delete
     void delete(ArticleSummary summary);
 
     @Update
     void update(ArticleSummary summary);
+
+    @Query("UPDATE article_summary SET viewed = (:viewed) WHERE sid =(:sid)")
+    void update(long sid, boolean viewed);
 }

@@ -2,18 +2,23 @@ package com.cnbeta.cnbetaone.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.TypeConverters;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import com.cnbeta.cnbetaone.BR;
 import com.cnbeta.cnbetaone.util.DateConverter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity(primaryKeys = "sid", tableName = "article_summary")
 @TypeConverters(DateConverter.class)
-public class ArticleSummary {
+public class ArticleSummary extends BaseObservable {
     /**
      * sid : 768093
      * title : 14nm产能不足？英特尔：需求太旺盛了
@@ -48,4 +53,25 @@ public class ArticleSummary {
     private String topicLogo;
     private String thumb;
 
+    private boolean viewed = false; // 已查看
+
+    @Bindable
+    public String getTitle() {
+        return title;
+    }
+
+    @Bindable
+    public boolean isViewed() {
+        return viewed;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        notifyPropertyChanged(BR.title);
+    }
+
+    public void setViewed(boolean viewed) {
+        this.viewed = viewed;
+        notifyPropertyChanged(BR.viewed);
+    }
 }

@@ -49,7 +49,18 @@ ArticleDetailFragmentPresenter implements ArticleDetailFragmentContract.Presente
             view.showArgumentsError();
             return;
         }
+        saveViewStatus();
         loadData();
+    }
+
+    /**
+     * 保存阅读状态
+     */
+    @SuppressLint("CheckResult")
+    private void saveViewStatus() {
+        Flowable.just(1)
+                .observeOn(Schedulers.io())
+                .subscribe(integer -> mCnbetaDatabase.articleSummaryDao().update(mSid, true));
     }
 
     @SuppressLint("CheckResult")

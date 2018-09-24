@@ -34,7 +34,6 @@
             tools:src="@color/qmui_config_color_red" />
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -42,6 +41,7 @@
             android:layout_marginTop="8dp"
             android:maxLines="2"
             android:text="@{article.title}"
+            android:textColor="@{article.viewed?@color/app_color_viewed:@android:color/black}"
             android:textSize="@dimen/qmui_btn_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/QMUIRadiusImageView"
@@ -50,11 +50,11 @@
             tools:text="华为新机入网“身份证照”曝光：珍珠屏+皮质后盖" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:textColor="@{article.viewed?@color/app_color_viewed:@android:color/black}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

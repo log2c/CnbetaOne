@@ -67,5 +67,6 @@ public class ArticleListAdapter extends PagedListAdapter<ArticleSummary, Article
         intent.putExtra(ArticleDetailActivity.FLAG_SID, articleSummary.getSid());
         intent.putExtra(ArticleDetailActivity.FLAG_TITLE, articleSummary.getTitle());
         view.getContext().startActivity(intent);
+        articleSummary.setViewed(true);
     }
 }

@@ -1,11 +1,14 @@
 package com.cnbeta.cnbetaone.helper;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cnbeta.cnbetaone.R;
+import com.cnbeta.cnbetaone.entity.ArticleSummary;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,5 +56,20 @@ public class DataBindingHelper {
             intervalStr = String.format(textView.getContext().getString(R.string.second_ago), second);
         }
         textView.setText(intervalStr);
+    }
+
+    @BindingAdapter({"articleSummary"})
+    public static void setArticleSummaryTitle(TextView textView, ArticleSummary articleSummary) {
+        if (articleSummary == null) {
+            return;
+        }
+        if (articleSummary.isViewed()) {
+            textView.setTextColor(ContextCompat.getColor(textView.getContext(), R.color.app_color_viewed));
+            textView.setText(articleSummary.getTitle());
+        } else {
+            textView.setTextColor(Color.BLACK);
+            textView.setText(articleSummary.getTitle());
+        }
+
     }
 }
