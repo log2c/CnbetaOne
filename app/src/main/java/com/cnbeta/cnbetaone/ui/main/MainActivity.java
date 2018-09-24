@@ -1,9 +1,13 @@
 package com.cnbeta.cnbetaone.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.cnbeta.cnbetaone.R;
 import com.cnbeta.cnbetaone.base.BaseActivity;
+import com.cnbeta.cnbetaone.ui.setting.SettingsActivity;
 import com.cnbeta.cnbetaone.util.ActivityUtils;
 
 import javax.inject.Inject;
@@ -19,11 +23,24 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         ArticleListFragment allFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
         if (allFragment == null) {
             allFragment = new ArticleListFragment();
-//            Bundle args = new Bundle();
-//            args.putString(ArticleListFragment.TOPIC_ID, "9");
-//            allFragment.setArguments(args);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), allFragment, R.id.fl_content);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ic_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

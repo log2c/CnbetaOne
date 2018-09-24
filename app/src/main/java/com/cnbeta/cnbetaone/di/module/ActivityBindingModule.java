@@ -8,6 +8,8 @@ import com.cnbeta.cnbetaone.ui.detail.ArticleDetailFragmentModel;
 import com.cnbeta.cnbetaone.ui.main.ArticleListFragmentProvider;
 import com.cnbeta.cnbetaone.ui.main.MainActivity;
 import com.cnbeta.cnbetaone.ui.main.MainActivityModule;
+import com.cnbeta.cnbetaone.ui.setting.SettingsActivity;
+import com.cnbeta.cnbetaone.ui.setting.SettingsActivityModel;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -20,4 +22,8 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = {ArticleDetailActivityModule.class, ArticleDetailFragmentModel.class})
     abstract ArticleDetailActivity articleDetailActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = SettingsActivityModel.class)
+    abstract SettingsActivity settingsActivity();
 }

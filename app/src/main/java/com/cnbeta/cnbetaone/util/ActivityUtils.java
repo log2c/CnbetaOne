@@ -41,4 +41,13 @@ public class ActivityUtils {
         transaction.commit();
     }
 
+    public static void addFragmentToActivity(@NonNull android.app.FragmentManager fragmentManager,
+                                             @NonNull android.app.Fragment fragment, int frameId) {
+        checkNotNull(fragmentManager);
+        checkNotNull(fragment);
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(frameId, fragment);
+        fragmentTransaction.commit();
+    }
+
 }

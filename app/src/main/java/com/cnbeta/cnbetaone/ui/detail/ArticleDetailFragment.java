@@ -62,8 +62,9 @@ public class ArticleDetailFragment extends BaseFragment implements ArticleDetail
         mWebView = view.findViewById(R.id.webView);
         mQMUIEmptyView = view.findViewById(R.id.qmui_empty_view);
         WebView.setWebContentsDebuggingEnabled(true);
-        WebSettings wSet = mWebView.getSettings();
-        wSet.setJavaScriptEnabled(true);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setTextZoom(120);
+        webSettings.setJavaScriptEnabled(true);
         return view;
     }
 

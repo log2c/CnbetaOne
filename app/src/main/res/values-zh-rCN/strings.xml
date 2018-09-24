@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cnbeta one</string>
+    <string name="app_name">西贝阅读</string>
     <string name="parameter_error">参数错误!</string>
     <string name="sub_title_day_time">%d天前</string>
     <string name="sub_title_hour_time">%d小时前</string>
@@ -18,4 +18,12 @@
     <string name="refresh">刷新</string>
     <string name="open_with_browser">通过浏览器打开</string>
     <string name="action_more">更多…</string>
+    <string name="settings">设置</string>
+    <string name="develop_by_log2c">Develop by log2c</string>
+    <string name="thanks_cnbeta">Thanks for cnbeta.com</string>
+    <string name="about">About</string>
+    <string name="check_update">Check update</string>
+    <string name="current_app_ver">Current version %1$s</string>
+    <string name="about_app">About app</string>
+    <string name="general">General</string>
 </resources>

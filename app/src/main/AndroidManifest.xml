@@ -27,6 +27,9 @@
         <activity
             android:name=".ui.photoview.PhotoViewActivity"
             android:theme="@style/AppTheme.Dark.Transparent" />
+        <activity
+            android:name=".ui.setting.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
