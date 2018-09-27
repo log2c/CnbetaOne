@@ -1,0 +1,24 @@
+def INFO_TMP = "{\n" +
+        "\"appCode\": %d,\n" +
+        "\"appName\": \"%s\"\n" +
+        "}"
+task generateAppInfo() {
+    int versionCode = rootProject.appVersionCode
+    String versionName = rootProject.appVersionName
+    String infoStr = String.format(INFO_TMP, versionCode, versionName)
+    println '++++++++++++ App Info Start ++++++++++++'
+    println(infoStr)
+    println '++++++++++++ App Info End ++++++++++++'
+    String path = new File(".").absolutePath
+    path = path.substring(0, path.length() - 2) + "/app_info.json"
+    writeFile(new File(path), infoStr)
+}
+
+static def writeFile(file, content) {
+    if (file.exists())
+        file.delete()
+    def printWriter = file.newPrintWriter()
+    printWriter.write(content)
+    printWriter.flush()
+    printWriter.close()
+}
