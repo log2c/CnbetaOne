@@ -22,8 +22,8 @@
     <string name="develop_by_log2c">Develop by log2c</string>
     <string name="thanks_cnbeta">Thanks for cnbeta.com</string>
     <string name="about">About</string>
-    <string name="check_update">Check update</string>
-    <string name="current_app_ver">Current version %1$s</string>
-    <string name="about_app">About app</string>
-    <string name="general">General</string>
+    <string name="check_update">检查更新</string>
+    <string name="current_app_ver">当前版本 %1$s</string>
+    <string name="about_app">关于 App</string>
+    <string name="general">一般</string>
 </resources>
