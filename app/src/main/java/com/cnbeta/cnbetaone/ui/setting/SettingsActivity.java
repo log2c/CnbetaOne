@@ -30,9 +30,9 @@ public class SettingsActivity extends BaseActivity implements SettingsActivityCo
             supportActionBar.setHomeButtonEnabled(true);
             supportActionBar.setTitle(null);
         }
-        SettingsFragment settingsFragment = (SettingsFragment) getFragmentManager().findFragmentById(R.id.fl_content);
+        SettingsFragment settingsFragment = (SettingsFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
         if (settingsFragment == null) {
-            ActivityUtils.addFragmentToActivity(getFragmentManager(), mSettingsFragment, R.id.fl_content);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mSettingsFragment, R.id.fl_content);
         }
     }
 
