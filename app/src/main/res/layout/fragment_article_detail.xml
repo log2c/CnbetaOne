@@ -22,13 +22,13 @@
             app:titleTextColor="@android:color/white" />
     </android.support.design.widget.AppBarLayout>
 
-    <com.cnbeta.cnbetaone.view.NestedWebView
+    <com.log2c.cnbetaone.view.NestedWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </com.cnbeta.cnbetaone.view.NestedWebView>
+    </com.log2c.cnbetaone.view.NestedWebView>
 
     <com.qmuiteam.qmui.widget.QMUIEmptyView
         android:id="@+id/qmui_empty_view"

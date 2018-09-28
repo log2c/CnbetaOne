@@ -7,11 +7,11 @@
 
         <variable
             name="article"
-            type="com.cnbeta.cnbetaone.entity.ArticleSummary" />
+            type="com.log2c.cnbetaone.entity.ArticleSummary" />
 
         <variable
             name="adapter"
-            type="com.cnbeta.cnbetaone.adapter.ArticleListAdapter" />
+            type="com.log2c.cnbetaone.adapter.ArticleListAdapter" />
     </data>
 
     <android.support.constraint.ConstraintLayout
