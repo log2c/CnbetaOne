@@ -48,7 +48,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:${rootProject.support}"
     implementation "com.android.support.constraint:constraint-layout:${rootProject.constraintLayout}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:support-v4:${rootProject.support}"
     implementation "com.android.support:preference-v14:${rootProject.support}"
     testImplementation 'junit:junit:4.12'
