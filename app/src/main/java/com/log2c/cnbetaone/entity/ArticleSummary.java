@@ -11,11 +11,6 @@ import com.log2c.cnbetaone.util.DateConverter;
 
 import java.util.Date;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
 @Entity(primaryKeys = "sid", tableName = "article_summary")
 @TypeConverters(DateConverter.class)
 public class ArticleSummary extends BaseObservable {
@@ -73,5 +68,101 @@ public class ArticleSummary extends BaseObservable {
     public void setViewed(boolean viewed) {
         this.viewed = viewed;
         notifyPropertyChanged(BR.viewed);
+    }
+
+    public long getSid() {
+        return sid;
+    }
+
+    public void setSid(long sid) {
+        this.sid = sid;
+    }
+
+    public Date getPubTime() {
+        return pubTime;
+    }
+
+    public void setPubTime(Date pubTime) {
+        this.pubTime = pubTime;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getCounter() {
+        return counter;
+    }
+
+    public void setCounter(String counter) {
+        this.counter = counter;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(String ratings) {
+        this.ratings = ratings;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public String getRatingsStory() {
+        return ratingsStory;
+    }
+
+    public void setRatingsStory(String ratingsStory) {
+        this.ratingsStory = ratingsStory;
+    }
+
+    public String getScoreStory() {
+        return scoreStory;
+    }
+
+    public void setScoreStory(String scoreStory) {
+        this.scoreStory = scoreStory;
+    }
+
+    public String getTopicLogo() {
+        return topicLogo;
+    }
+
+    public void setTopicLogo(String topicLogo) {
+        this.topicLogo = topicLogo;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 }

@@ -9,7 +9,8 @@ import com.log2c.cnbetaone.R;
 import com.log2c.cnbetaone.entity.ArticleContent;
 import com.log2c.cnbetaone.ui.photoview.PhotoViewActivity;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class JSBridgeInterface {
     private static final String TAG = JSBridgeInterface.class.getSimpleName();
@@ -23,28 +24,13 @@ public class JSBridgeInterface {
     public JSBridgeInterface(ArticleContent content, Context context) {
         mContext = context;
         mTitle = content.getTitle();
-        mSubTitle = String.format(context.getString(R.string.sub_title_format), getSubTitleTimeStr(content, context), content.getAid(), content.getMView(), content.getComments());
+        mSubTitle = String.format(context.getString(R.string.sub_title_format), getSubTitleTimeStr(content), content.getAid(), content.getView(), content.getComments());
         mIntro = content.getHomeText();
         mContent = content.getBodyText();
     }
 
-    private static String getSubTitleTimeStr(ArticleContent content, Context context) {
-        Date articleDate = content.getTime();
-        Date nowDate = new Date();
-        long l = nowDate.getTime() - articleDate.getTime();
-        long day = l / (24 * 60 * 60 * 1000);
-        long hour = (l / (60 * 60 * 1000) - day * 24);
-        long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
-        long second = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-        if (day > 0) {
-            return String.format(context.getString(R.string.sub_title_day_time), day);
-        } else if (hour > 0) {
-            return String.format(context.getString(R.string.sub_title_hour_time), hour);
-        } else if (min > 0) {
-            return String.format(context.getString(R.string.sub_title_minute_time), min);
-        } else {
-            return String.format(context.getString(R.string.sub_title_second_time), second);
-        }
+    private static String getSubTitleTimeStr(ArticleContent content) {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(content.getTime());
     }
 
     @JavascriptInterface

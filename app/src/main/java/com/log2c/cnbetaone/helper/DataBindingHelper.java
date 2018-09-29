@@ -11,6 +11,7 @@ import com.log2c.cnbetaone.R;
 import com.log2c.cnbetaone.entity.ArticleSummary;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -32,28 +33,41 @@ public class DataBindingHelper {
 
     @BindingAdapter({"timeInterval"})
     public static void getIntervalStr(TextView textView, Date publishTime) {
-        long l = new Date().getTime() - publishTime.getTime();
+        Calendar rightNow = Calendar.getInstance();
+        Calendar publish = Calendar.getInstance();
+        publish.setTime(publishTime);
+        long l = rightNow.getTime().getTime() - publishTime.getTime();
         long day = l / (24 * 60 * 60 * 1000);
         long hour = (l / (60 * 60 * 1000) - day * 24);
         long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
         long second = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
         String intervalStr;
-        SimpleDateFormat sf = new SimpleDateFormat("a hh:mm", Locale.CHINA);
+        SimpleDateFormat sf = new SimpleDateFormat("HH:mm", Locale.CHINA);
         String dateStr = sf.format(publishTime);
-        if (day > 0) { // 1天及以上的新闻
-            if (day == 1) {    //昨天
-                intervalStr = textView.getContext().getString(R.string.yesterday) + " " + dateStr;
-            } else if (day <= 3) { // 1<day<=3
-                intervalStr = String.format(textView.getContext().getString(R.string.days_ago), day);
-            } else {
-                intervalStr = new SimpleDateFormat("yyyy-MM-dd ahh:mm:ss", Locale.CHINA).format(publishTime);
-            }
-        } else if (hour > 0) {
-            intervalStr = String.format(textView.getContext().getString(R.string.hour_ago), hour) + " " + dateStr;
-        } else if (min > 0) {
-            intervalStr = String.format(textView.getContext().getString(R.string.minutes_ago), min);
-        } else {
-            intervalStr = String.format(textView.getContext().getString(R.string.second_ago), second);
+        int days = rightNow.get(Calendar.DAY_OF_YEAR) - publish.get(Calendar.DAY_OF_YEAR);
+        if (publish.get(Calendar.YEAR) != rightNow.get(Calendar.YEAR)) {    // 不解释
+            intervalStr = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(publishTime);
+            textView.setText(intervalStr);
+            return;
+        }
+        switch (days) {
+            case 0: // 今天
+                if (hour == 0 && min == 0) {    // *秒前发布
+                    intervalStr = String.format(textView.getContext().getString(R.string.second_ago), second);
+                } else if (hour == 0) {  // *分钟前发布
+                    intervalStr = String.format(textView.getContext().getString(R.string.minutes_ago), min);
+                } else if (hour <= 3) { // 小于等于三小时内
+                    intervalStr = String.format(textView.getContext().getString(R.string.hour_ago), hour);
+                } else {
+                    intervalStr = String.format(textView.getContext().getString(R.string.today_time), dateStr);
+                }
+                break;
+            case 1: // 昨天
+                intervalStr = textView.getContext().getString(R.string.yesterday) + " " + new SimpleDateFormat("HH:mm", Locale.CHINA).format(publishTime);
+                break;
+            default:    // 前天及之前
+                intervalStr = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA).format(publishTime);
+                break;
         }
         textView.setText(intervalStr);
     }

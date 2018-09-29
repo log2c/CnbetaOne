@@ -9,6 +9,7 @@
     <string name="reload">刷新</string>
     <string name="days_ago">%1$d 天前</string>
     <string name="yesterday">昨天</string>
+    <string name="today_time">今天 %1$s</string>
     <string name="hour_ago">%1$d 小时前</string>
     <string name="minutes_ago">%1$d 分钟前</string>
     <string name="second_ago">%1$d 秒前</string>

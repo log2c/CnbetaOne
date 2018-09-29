@@ -11,7 +11,8 @@
     <string name="sub_title_format">%1$s %2$s %3$d view %4$d comments</string>
     <string name="reload">Reload</string>
     <string name="days_ago">%1$d Days ago</string>
-    <string name="yesterday">yesterday</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="today_time">Today %1$s</string>
     <string name="hour_ago">%1$d hours ago</string>
     <string name="minutes_ago">%1$d minutes ago</string>
     <string name="second_ago">%1$d seconds ago</string>
