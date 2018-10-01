@@ -1,6 +1,7 @@
 package com.log2c.cnbetaone.data.datasource;
 
 import android.arch.paging.ItemKeyedDataSource;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -9,11 +10,13 @@ import com.log2c.cnbetaone.data.repository.ArticleSummaryRepository;
 import com.log2c.cnbetaone.data.repository.ArticleSummaryServerRepositoryImp;
 import com.log2c.cnbetaone.db.dao.ArticleSummaryDao;
 import com.log2c.cnbetaone.entity.ArticleSummary;
+import com.log2c.cnbetaone.util.NetworkUtil;
 
 import java.util.List;
 
 public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleSummary> {
     private static final String TAG = ArticleSummaryDataSource.class.getSimpleName();
+    private final Context mContext;
 
     @Nullable
     private String mSidType;
@@ -21,7 +24,7 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
     ArticleSummaryRepository mDatabaseRepository;
     ArticleSummaryDao mArticleSummaryDao;
 
-    public ArticleSummaryDataSource(@Nullable String sidType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, ArticleSummaryDao summaryDao) {
+    public ArticleSummaryDataSource(@Nullable String sidType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, ArticleSummaryDao summaryDao, Context context) {
         mArticleSummaryDao = summaryDao;
         this.mSidType = sidType;
         mServerRepository = serverRepository;
@@ -29,12 +32,15 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
         if (mSidType == null) {
             mSidType = "null";
         }
+        mContext = context;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Long> params, @NonNull LoadInitialCallback<ArticleSummary> callback) {
-        List<ArticleSummary> serverData = mServerRepository.loadOnInit(mSidType);
-        mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));
+        if (NetworkUtil.isNetworkConnected(mContext)) {
+            List<ArticleSummary> serverData = mServerRepository.loadOnInit(mSidType);
+            mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));
+        }
         List<ArticleSummary> dbData = mDatabaseRepository.loadOnInit(mSidType);
         callback.onResult(dbData);
     }
@@ -42,8 +48,10 @@ public class ArticleSummaryDataSource extends ItemKeyedDataSource<Long, ArticleS
     // 加载旧数据
     @Override
     public void loadAfter(@NonNull LoadParams<Long> params, @NonNull LoadCallback<ArticleSummary> callback) {
-        List<ArticleSummary> serverData = mServerRepository.loadAfter(mSidType, params.key);    // 先从服务器加载
-        mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));   // 保存到数据库中
+        if (NetworkUtil.isNetworkConnected(mContext)) {
+            List<ArticleSummary> serverData = mServerRepository.loadAfter(mSidType, params.key);    // 先从服务器加载
+            mArticleSummaryDao.insertIgnore(serverData.toArray(new ArticleSummary[serverData.size()]));   // 保存到数据库中
+        }
         List<ArticleSummary> dbData = mDatabaseRepository.loadAfter(mSidType, params.key);
         callback.onResult(dbData);
     }

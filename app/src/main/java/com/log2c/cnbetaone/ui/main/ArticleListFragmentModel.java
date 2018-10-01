@@ -46,8 +46,8 @@ public abstract class ArticleListFragmentModel {
 
     @FragmentScoped
     @Provides
-    static ArticleSummaryDataSourceFactory provideArticleDataFactory(@Nullable String topicType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase) {
-        return new ArticleSummaryDataSourceFactory(topicType, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao());
+    static ArticleSummaryDataSourceFactory provideArticleDataFactory(@Nullable String topicType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase, Application application) {
+        return new ArticleSummaryDataSourceFactory(topicType, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao(), application);
     }
 
     @FragmentScoped
