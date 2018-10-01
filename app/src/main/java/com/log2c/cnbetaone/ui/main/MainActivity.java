@@ -10,16 +10,22 @@ import com.log2c.cnbetaone.base.BaseActivity;
 import com.log2c.cnbetaone.ui.setting.SettingsActivity;
 import com.log2c.cnbetaone.util.ActivityUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainActivityContract.View, android.view.View.OnClickListener {
     @Inject
     MainActivityPresenter mPresenter;
+    private List<String> mTopicTypeList = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTopicTypeList = new ArrayList<>();
         ArticleListFragment allFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content);
         if (allFragment == null) {
             allFragment = new ArticleListFragment();
@@ -57,5 +63,17 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     public void onClick(android.view.View v) {
+    }
+
+    /**
+     * // TODO 多Topic阅读模式
+     *
+     * @return topictype
+     */
+    public String getTopic() {
+        if (mTopicTypeList.isEmpty()) {
+            return null;
+        }
+        return mTopicTypeList.get(0);
     }
 }

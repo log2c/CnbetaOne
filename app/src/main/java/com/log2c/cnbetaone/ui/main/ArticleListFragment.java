@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.log2c.cnbetaone.R;
 import com.log2c.cnbetaone.adapter.ArticleListAdapter;
 import com.log2c.cnbetaone.base.BaseFragment;
+import com.log2c.cnbetaone.di.scope.FragmentScoped;
 import com.log2c.cnbetaone.entity.ArticleSummary;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import javax.inject.Inject;
 /**
  * 显示 Article 列表
  */
+@FragmentScoped
 public class ArticleListFragment extends BaseFragment implements ArticleListFragmentContract.View {
     public static final String TOPIC_ID = "topic_id";
     private RecyclerView mRecyclerView;

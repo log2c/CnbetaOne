@@ -11,6 +11,7 @@ import com.log2c.cnbetaone.data.datasource.ArticleSummaryDataSourceFactory;
 import com.log2c.cnbetaone.data.repository.ArticleSummaryDatabaseRepositoryImp;
 import com.log2c.cnbetaone.data.repository.ArticleSummaryServerRepositoryImp;
 import com.log2c.cnbetaone.db.CnbetaDatabase;
+import com.log2c.cnbetaone.di.scope.FragmentScoped;
 import com.log2c.cnbetaone.entity.ArticleSummary;
 
 import dagger.Binds;
@@ -20,33 +21,36 @@ import dagger.Provides;
 @Module
 public abstract class ArticleListFragmentModel {
 
+    @FragmentScoped
     @Binds
     abstract ArticleListFragmentContract.Presenter provideFragmentPresenter(ArticleListFragmentPresenter presenter);
 
+    @FragmentScoped
     @Nullable
     @Provides
-    static String provideTopic(ArticleListFragment articleListFragment) {
-        if (articleListFragment.getArguments() != null) {
-            return articleListFragment.getArguments().getString(ArticleListFragment.TOPIC_ID);
-        }
-        return null;
+    static String provideTopic(MainActivity mainActivity) {
+        return mainActivity.getTopic();
     }
 
+    @FragmentScoped
     @Provides
     static ArticleSummaryDatabaseRepositoryImp provideDatabase(CnbetaDatabase database) {
         return new ArticleSummaryDatabaseRepositoryImp(database.articleSummaryDao());
     }
 
+    @FragmentScoped
     @Provides
     static ArticleSummaryServerRepositoryImp provideServer(CnbetaApi cnbetaApi, Application application) {
         return new ArticleSummaryServerRepositoryImp(cnbetaApi, application);
     }
 
+    @FragmentScoped
     @Provides
     static ArticleSummaryDataSourceFactory provideArticleDataFactory(@Nullable String topicType, ArticleSummaryServerRepositoryImp serverRepository, ArticleSummaryDatabaseRepositoryImp databaseRepository, CnbetaDatabase cnbetaDatabase) {
         return new ArticleSummaryDataSourceFactory(topicType, serverRepository, databaseRepository, cnbetaDatabase.articleSummaryDao());
     }
 
+    @FragmentScoped
     @SuppressWarnings("unchecked")
     @Provides
     static LiveData<PagedList<ArticleSummary>> provideArticlePagedList(ArticleSummaryDataSourceFactory factory) {

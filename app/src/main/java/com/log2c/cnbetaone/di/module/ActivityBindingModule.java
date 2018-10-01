@@ -16,6 +16,7 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBindingModule {
+    @ActivityScoped
     @ContributesAndroidInjector(modules = {MainActivityModule.class, ArticleListFragmentProvider.class})
     abstract MainActivity mainActivity();
 
