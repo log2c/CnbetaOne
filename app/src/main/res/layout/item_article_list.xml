@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="article"
+            type="com.log2c.cnbetaone.entity.ArticleSummary" />
+
+        <variable
+            name="adapter"
+            type="com.log2c.cnbetaone.adapter.ArticleListAdapter" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:onClick="@{(v) -> adapter.onItemClick(article,v)}">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/QMUIRadiusImageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
+            app:imageUrl="@{article.thumb}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_is_oval="true"
+            tools:src="@color/qmui_config_color_red" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="2"
+            android:text="@{article.title}"
+            android:textColor="@{article.viewed?@color/app_color_viewed:@android:color/black}"
+            android:textSize="@dimen/qmui_btn_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/QMUIRadiusImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="华为新机入网“身份证照”曝光：珍珠屏+皮质后盖" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="@{article.viewed?@color/app_color_viewed:@android:color/black}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:timeInterval="@{article.pubTime}"
+            tools:text="1 分钟前" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

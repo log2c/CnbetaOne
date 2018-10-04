@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Cnbeta one</string>
+    <string name="github_home_url">https://github.com/log2c/CnbetaOne</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="parameter_error">Parameter error!</string>
+    <string name="sub_title_day_time">%d day(s) ago</string>
+    <string name="sub_title_hour_time">%d hour(s) ago</string>
+    <string name="sub_title_minute_time">%d minute(s) ago</string>
+    <string name="sub_title_second_time">%d second(s) ago</string>
+    <string name="sub_title_format">%1$s %2$s %3$d view %4$d comments</string>
+    <string name="reload">Reload</string>
+    <string name="days_ago">%1$d Days ago</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="today_time">Today %1$s</string>
+    <string name="hour_ago">%1$d hours ago</string>
+    <string name="minutes_ago">%1$d minutes ago</string>
+    <string name="second_ago">%1$d seconds ago</string>
+    <string name="network_error">Network error!</string>
+    <string name="okhttp_error">Okhttp error!</string>
+    <string name="unknown_error">Unknown error!</string>
+    <string name="refresh">Refresh</string>
+    <string name="open_with_browser">Open with browser</string>
+    <string name="action_more">More…</string>
+    <string name="settings">Settings</string>
+    <string name="develop_by_log2c">Develop by log2c</string>
+    <string name="thanks_cnbeta">Thanks for cnbeta.com</string>
+    <string name="about">About</string>
+    <string name="check_update">Check update</string>
+    <string name="current_app_ver">Current version %1$s</string>
+    <string name="about_app">About app</string>
+    <string name="general">General</string>
+    <string name="download_success">Download success</string>
+    <string name="download_failed">Download failed</string>
 </resources>

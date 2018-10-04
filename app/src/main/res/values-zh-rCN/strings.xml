@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">西贝阅读</string>
+    <string name="parameter_error">参数错误!</string>
+    <string name="sub_title_day_time">%d天前</string>
+    <string name="sub_title_hour_time">%d小时前</string>
+    <string name="sub_title_minute_time">%d分钟前</string>
+    <string name="sub_title_second_time">%d秒前</string>
+    <string name="sub_title_format">%1$s %2$s %3$d查看 %4$d评论</string>
+    <string name="reload">刷新</string>
+    <string name="days_ago">%1$d 天前</string>
+    <string name="yesterday">昨天</string>
+    <string name="today_time">今天 %1$s</string>
+    <string name="hour_ago">%1$d 小时前</string>
+    <string name="minutes_ago">%1$d 分钟前</string>
+    <string name="second_ago">%1$d 秒前</string>
+    <string name="network_error">网络异常!</string>
+    <string name="okhttp_error">App内部错误!</string>
+    <string name="unknown_error">未知错误!</string>
+    <string name="refresh">刷新</string>
+    <string name="open_with_browser">通过浏览器打开</string>
+    <string name="action_more">更多…</string>
+    <string name="settings">设置</string>
+    <string name="develop_by_log2c">Develop by log2c</string>
+    <string name="thanks_cnbeta">Thanks for cnbeta.com</string>
+    <string name="about">关于</string>
+    <string name="check_update">检查更新</string>
+    <string name="current_app_ver">当前版本 %1$s</string>
+    <string name="about_app">关于 App</string>
+    <string name="general">一般</string>
+    <string name="download_success">下载完成</string>
+    <string name="download_failed">下载失败</string>
+</resources>
