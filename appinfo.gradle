@@ -1,6 +1,7 @@
 def INFO_TMP = "{\n" +
-        "\"appCode\": %d,\n" +
-        "\"appName\": \"%s\"\n" +
+        "  \"appCode\": 1,\n" +
+        "  \"appName\": \"1.0.0\",\n" +
+        "  \"mark\": \" \"\n" +
         "}"
 task generateAppInfo() {
     int versionCode = rootProject.appVersionCode
