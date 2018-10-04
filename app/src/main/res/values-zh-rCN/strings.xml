@@ -27,4 +27,6 @@
     <string name="current_app_ver">当前版本 %1$s</string>
     <string name="about_app">关于 App</string>
     <string name="general">一般</string>
+    <string name="download_success">下载完成</string>
+    <string name="download_failed">下载失败</string>
 </resources>
